@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "181134617338",
+    "project_id": "ankylo-cup",
+    "storage_bucket": "ankylo-cup.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:181134617338:android:518b6de5f8cec1264f3743",
+        "android_client_info": {
+          "package_name": "com.antimobile.ankylocup"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCBhalxrqYwU56BC1w6LjNC94E83fdhOC4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
