@@ -1,6 +1,6 @@
 name: ankylo_cup
 description: "A new Flutter project."
-publish_to: 'none' 
+publish_to: "none"
 version: 1.0.0+1
 
 environment:
@@ -14,6 +14,8 @@ dependencies:
   flame: ^1.22.0
   flutter_animate: ^4.5.0
   google_fonts: ^6.1.0
+  firebase_core: ^3.8.1
+  firebase_auth: ^5.3.4
 
 dev_dependencies:
   flutter_test:
