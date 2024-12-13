@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import 'src/widgets/game_app.dart';
+import 'games/brick-breaker/widgets/game_app.dart';
 
 void main() {
   runApp(const GameApp());
