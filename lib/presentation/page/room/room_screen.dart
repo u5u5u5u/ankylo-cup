@@ -7,7 +7,7 @@ class RoomScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ルーム作成および検索'),
+        title: Text('ルーム'),
         backgroundColor: const Color.fromARGB(200, 127, 65, 192),
       ),
       body: Center(
@@ -28,7 +28,7 @@ class RoomScreen extends StatelessWidget {
                   color: const Color.fromARGB(200, 203, 189, 247),
                   child: Center(
                     child: Text(
-                      'ルーム作成',
+                      '作成',
                       style: TextStyle(fontSize: 24),
                     ),
                   ),
@@ -50,7 +50,7 @@ class RoomScreen extends StatelessWidget {
                   color: const Color.fromARGB(200, 203, 189, 247),
                   child: Center(
                     child: Text(
-                      'ルーム検索',
+                      '検索',
                       style: TextStyle(fontSize: 24),
                     ),
                   ),
