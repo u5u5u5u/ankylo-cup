@@ -55,26 +55,29 @@ class _SigninScreenState extends State<SigninScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: _user == null
-            ? ElevatedButton(
-                onPressed: signInWithGoogle,
-                child: Text('Sign in with Google'),
-              )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Signed in as ${_user!.displayName}'),
-                  Text('Email: ${_user!.email}'),
-                  _user!.photoURL != null
-                      ? Image.network(_user!.photoURL!)
-                      : Container(),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: signOut,
-                    child: Text('Sign out'),
-                  ),
-                ],
-              ),
+        child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+          GestureDetector(
+        onTap: signInWithGoogle,
+        child: SizedBox(
+          width: MediaQuery.of(context).size.width * 0.7,
+          height: MediaQuery.of(context).size.height * 0.1,
+          child: Card(
+            shape: RoundedRectangleBorder(
+          side: BorderSide(
+              color: Theme.of(context).primaryColor, width: 1),
+          borderRadius: BorderRadius.circular(20), // Set border radius here
+            ),
+            color: Theme.of(context).cardColor,
+            child: Center(
+            child: Text(
+          'Sign in with Google',
+          style: TextStyle(
+              fontSize: 15, color: Theme.of(context).primaryColor),
+            )),
+          ),
+        ),
+          ),
+        ]),
       ),
     );
   }

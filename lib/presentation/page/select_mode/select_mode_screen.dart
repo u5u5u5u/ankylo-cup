@@ -11,7 +11,7 @@ class SelectModeScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('モード選択', style: TextStyle(color: Colors.white)),
+        title: Text('Mode', style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         actions: [
@@ -48,9 +48,9 @@ class SelectModeScreen extends StatelessWidget {
                   color: Theme.of(context).cardColor,
                   child: Center(
                     child: Text(
-                      'ソロ',
+                      'solo',
                       style: TextStyle(
-                        fontSize: 50,
+                        fontSize: 35,
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
@@ -74,9 +74,9 @@ class SelectModeScreen extends StatelessWidget {
                   color: Theme.of(context).cardColor,
                   child: Center(
                     child: Text(
-                      'マルチ',
+                      'multi',
                       style: TextStyle(
-                        fontSize: 50,
+                        fontSize: 35,
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
                       ),

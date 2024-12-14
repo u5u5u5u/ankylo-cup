@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class AppTheme {
   static ThemeData get theme {
@@ -6,9 +7,9 @@ class AppTheme {
       primaryColor: const Color.fromARGB(200, 127, 65, 192),
       scaffoldBackgroundColor: const Color.fromARGB(200, 203, 189, 247),
       cardColor: const Color.fromARGB(200, 203, 189, 247),
-      textTheme: const TextTheme(
-        bodyLarge: TextStyle(color: Colors.white, fontSize: 24),
-        bodyMedium: TextStyle(color: Colors.white),
+      textTheme: GoogleFonts.pressStart2pTextTheme().apply(
+        bodyColor: Colors.white,
+        displayColor: Colors.white,
       ),
     );
   }

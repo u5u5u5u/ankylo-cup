@@ -26,10 +26,7 @@ class TitleScreen extends StatelessWidget {
                   // アプリ名のフェードインとスライドアニメーション
                   Text(
                     'Shikaku Games',
-                    style: Theme.of(context)
-                        .textTheme
-                        .bodyLarge
-                        ?.copyWith(fontSize: 30),
+                    style: TextStyle(fontSize: 30, color: Colors.white),
                   )
                       .animate()
                       .fadeIn(duration: 2.seconds)
