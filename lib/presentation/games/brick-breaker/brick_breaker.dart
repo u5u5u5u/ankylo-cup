@@ -69,17 +69,17 @@ class BrickBreaker extends FlameGame
         difficultyModifier: difficultyModifier,
         radius: ballRadius,
         position: size / 2,
-        velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.3)
+        velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.2)
             .normalized()
-          ..scale(height / 4)));
+          ..scale(height / 3)));
 
     world.add(Bat(
         size: Vector2(batWidth, batHeight),
         cornerRadius: const Radius.circular(ballRadius / 2),
         position: Vector2(width / 2, height * 0.95)));
 
-    for (var i = 5; i >= 1; i--) {
-      for (var j = 0; j < brickColors.length; j++) {
+    for (var i = brickRows; i >= 1; i--) {
+      for (var j = 0; j < brickColumns; j++) {
         world.add(Brick(
           position: Vector2(
             (j + 0.5) * brickWidth + (j + 1) * brickGutter,
@@ -87,6 +87,7 @@ class BrickBreaker extends FlameGame
           ),
           color: brickColors[9],
           health: brickHealth,
+          maxhealth: brickHealth,
         ));
       }
       brickHealth = (brickHealth * 1.3).toInt();
