@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:ankylo_cup/presentation/home/home_screen.dart'; // Add this import
 
 class SigninScreen extends StatefulWidget {
   @override
@@ -9,37 +10,34 @@ class SigninScreen extends StatefulWidget {
 }
 
 class _SigninScreenState extends State<SigninScreen> {
-  // FirebaseAuthインスタンスを取得
   final FirebaseAuth _auth = FirebaseAuth.instance;
-  // GoogleSignInインスタンスを取得
-  // scopeにはAPIを通して操作できるユーザのリソースを指定する、以下のページを参照
-  // https://developers.google.com/identity/protocols/oauth2/scopes?hl=ja#fcm
-  final GoogleSignIn _googleSignIn = GoogleSignIn(scopes: [
-    // 例えば、Google Calendarの情報を操作するには、ここに範囲を記載する
-    // https://www.googleapis.com/auth/calendar.readonly,
-    // https://www.googleapis.com/auth/calendar.events,
-  ]);
+  final GoogleSignIn _googleSignIn = GoogleSignIn();
 
-  // ログインしたユーザー情報を保持する変数
   User? _user;
 
-  // Googleサインインメソッド
-  Future<UserCredential> signInWithGoogle() async {
-    // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+  Future<void> signInWithGoogle() async {
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+    if (googleUser == null) {
+      return; // サインインがキャンセルされた場合
+    }
 
-    // Obtain the auth details from the request
-    final GoogleSignInAuthentication? googleAuth =
-        await googleUser?.authentication;
-
-    // Create a new credential
-    final credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth?.accessToken,
-      idToken: googleAuth?.idToken,
+    final GoogleSignInAuthentication googleAuth =
+        await googleUser.authentication;
+    final AuthCredential credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth.accessToken,
+      idToken: googleAuth.idToken,
     );
 
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    final UserCredential userCredential =
+        await _auth.signInWithCredential(credential);
+    setState(() {
+      _user = userCredential.user;
+    });
+
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => HomeScreen(user: _user)),
+    );
   }
 
   // サインアウトメソッド
@@ -55,27 +53,10 @@ class _SigninScreenState extends State<SigninScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       body: Center(
-        child: _user == null
-            ? ElevatedButton(
-                onPressed: signInWithGoogle,
-                child: Text('Sign in with Google'),
-              )
-            : Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text('Signed in as ${_user!.displayName}'),
-                  Text('Email: ${_user!.email}'),
-                  _user!.photoURL != null
-                      ? Image.network(_user!.photoURL!)
-                      : Container(),
-                  SizedBox(height: 20),
-                  ElevatedButton(
-                    onPressed: signOut,
-                    child: Text('Sign out'),
-                  ),
-                ],
-              ),
-      ),
+          child: ElevatedButton(
+        onPressed: signInWithGoogle,
+        child: Text('Sign in with Google'),
+      )),
     );
   }
 }
