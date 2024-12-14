@@ -26,7 +26,7 @@ class _SigninScreenState extends State<SigninScreen> {
   // Googleサインインメソッド
   Future<UserCredential> signInWithGoogle() async {
     // Trigger the authentication flow
-    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
 
     // Obtain the auth details from the request
     final GoogleSignInAuthentication? googleAuth =
@@ -39,7 +39,14 @@ class _SigninScreenState extends State<SigninScreen> {
     );
 
     // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    UserCredential userCredential = await _auth.signInWithCredential(credential);
+
+    // JWT トークンを取得して print
+    final idToken = await userCredential.user?.getIdToken();
+    final accessToken = await userCredential.user?.getIdToken();
+    print('ID Token: $idToken');
+    print('Access Token: $accessToken');
+    return userCredential;
   }
 
   // サインアウトメソッド
@@ -57,7 +64,12 @@ class _SigninScreenState extends State<SigninScreen> {
       body: Center(
         child: _user == null
             ? ElevatedButton(
-                onPressed: signInWithGoogle,
+                onPressed: () async {
+                  UserCredential userCredential = await signInWithGoogle();
+                  setState(() {
+                    _user = userCredential.user;
+                  });
+                },
                 child: Text('Sign in with Google'),
               )
             : Column(
