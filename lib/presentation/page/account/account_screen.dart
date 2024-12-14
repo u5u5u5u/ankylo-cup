@@ -11,7 +11,7 @@ class AccountScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Account Information'),
-        backgroundColor: const Color.fromARGB(200, 127, 65, 192),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Center(
         child: user != null
@@ -19,12 +19,12 @@ class AccountScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                    backgroundImage: NetworkImage(user!.photoURL!),
+                    backgroundImage: NetworkImage(user!.photoURL ?? ''),
                     radius: 50,
                   ),
                   SizedBox(height: 20),
-                  Text('Name: ${user!.displayName}'),
-                  Text('Email: ${user!.email}'),
+                  Text('Name: ${user!.displayName ?? ''}'),
+                  Text('Email: ${user!.email ?? ''}'),
                   Text('UID: ${user!.uid}'),
                 ],
               )

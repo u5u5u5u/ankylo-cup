@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:ankylo_cup/presentation/home/home_screen.dart'; // Add this import
+import 'package:ankylo_cup/presentation/page/select_mode/select_mode_screen.dart'; // Add this import
 
 class SigninScreen extends StatefulWidget {
   @override
@@ -36,7 +36,7 @@ class _SigninScreenState extends State<SigninScreen> {
 
     Navigator.pushReplacement(
       context,
-      MaterialPageRoute(builder: (context) => HomeScreen(user: _user)),
+      MaterialPageRoute(builder: (context) => SelectModeScreen()),
     );
   }
 

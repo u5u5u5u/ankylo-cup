@@ -61,8 +61,8 @@ class TitleScreen extends StatelessWidget {
                       )
                       .moveY(
                         duration: 1.seconds,
-                        begin: -15,
-                        end: 15,
+                        begin: -5,
+                        end: 5,
                         curve: Curves.easeInOut,
                       ),
                 ],

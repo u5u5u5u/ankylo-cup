@@ -1,7 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:ankylo_cup/presentation/auth/signin.dart';
-import 'package:ankylo_cup/presentation/home/home_screen.dart';
+import 'package:ankylo_cup/presentation/page/select_mode/select_mode_screen.dart';
 
 class Auth extends StatelessWidget {
   const Auth({super.key});
@@ -18,7 +18,7 @@ class Auth extends StatelessWidget {
             ),
           );
         } else if (snapshot.hasData) {
-          return HomeScreen(user: snapshot.data);
+          return SelectModeScreen();
         } else {
           return SigninScreen();
         }
