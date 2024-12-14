@@ -1,10 +1,10 @@
 syntax = "proto3";
 
-package ankylo_up;
+package models;
 
 import "google/protobuf/timestamp.proto";
 
-option go_package = "proto/pb";
+option go_package = "github.com/tsunakit99/ankylo-cup-backend/internal/pb/models";
 
 message User {
   string id = 1;
@@ -12,6 +12,7 @@ message User {
   string avatar_url = 3;
   google.protobuf.Timestamp created_at = 4;
   google.protobuf.Timestamp updated_at = 5;
+  int32 coin = 6; // coin追加。0が無コイン状態とする
 }
 
 message Game {
@@ -38,18 +39,4 @@ message Score {
   int32 game_id = 3;
   int32 score = 4;
   google.protobuf.Timestamp played_at = 5;
-  int32 room_id = 6;
-}
-
-service UserService {
-  rpc GetUser (GetUserRequest) returns (GetUserResponse);
-}
-
-message GetUserRequest {
-  string user_id = 1;
-}
-
-message GetUserResponse {
-  string user_id = 1;
-  string display_name = 2;
 }

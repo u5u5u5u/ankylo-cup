@@ -34,7 +34,7 @@ class MiniGamesApp extends StatelessWidget {
           displayColor: const Color(0xff184e77),
         ),
       ),
-      home: const GameApp(),
+      home: const TitleScreen(),
     );
   }
 }
