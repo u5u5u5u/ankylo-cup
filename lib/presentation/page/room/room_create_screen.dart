@@ -10,8 +10,16 @@ class RoomCreateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ゲーム選択'),
+        title: Text('ゲーム選択', style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).primaryColor,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       body: GridView.count(
         crossAxisCount: 2,
@@ -42,7 +50,11 @@ class RoomCreateScreen extends StatelessWidget {
         child: Center(
           child: Text(
             title,
-            style: TextStyle(fontSize: 24, color: Colors.white),
+            style: TextStyle(
+              color: Theme.of(context).primaryColor,
+              fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
+              fontWeight: FontWeight.bold,
+            ),
           ),
         ),
       ),
