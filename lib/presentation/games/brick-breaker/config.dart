@@ -20,11 +20,36 @@ const ballRadius = gameWidth * 0.02;
 const batWidth = gameWidth * 0.25;
 const batHeight = ballRadius * 5;
 const batStep = gameWidth * 0.05;
-const brickRows = 5;
-const brickColumns = 8;
 const brickGutter = gameWidth * 0.015;
-const brickWidth =
-    (gameWidth - (brickGutter * (brickColumns + 1))) / brickColumns;
+var brickWidth = 0.0;
 const brickHeight = gameHeight * 0.03;
 var brickHealth = 10;
-const difficultyModifier = 1.02;
+const difficultyModifier = 1.0;
+var stageNumber = 1;
+
+const stage1 = [
+  [1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1]
+];
+
+const stage2 = [
+  [1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1]
+];
+
+const stage3 = [
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1],
+  [1, 1, 1, 1, 1, 1, 1, 1, 1, 1]
+];

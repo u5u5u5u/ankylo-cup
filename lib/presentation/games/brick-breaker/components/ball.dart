@@ -29,27 +29,30 @@ class Ball extends CircleComponent
   void update(double dt) {
     super.update(dt);
     position += velocity * dt;
+    // Check for collisions with the PlayArea boundaries
+    if (position.y <= 0) {
+      velocity.y = -velocity.y;
+      position.y = 0; // Prevent ball from going out of bounds
+    } else if (position.x <= 0) {
+      velocity.x = -velocity.x;
+      position.x = 0; // Prevent ball from going out of bounds
+    } else if (position.x >= game.width) {
+      velocity.x = -velocity.x;
+      position.x = game.width; // Prevent ball from going out of bounds
+    } else if (position.y >= game.height) {
+      add(RemoveEffect(
+          delay: 0.35,
+          onComplete: () {
+            game.playState = PlayState.gameOver;
+          }));
+    }
   }
 
   @override
   void onCollisionStart(
       Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
-    if (other is PlayArea) {
-      if (intersectionPoints.first.y <= 0) {
-        velocity.y = -velocity.y;
-      } else if (intersectionPoints.first.x <= 0) {
-        velocity.x = -velocity.x;
-      } else if (intersectionPoints.first.x >= game.width) {
-        velocity.x = -velocity.x;
-      } else if (intersectionPoints.first.y >= game.height) {
-        add(RemoveEffect(
-            delay: 0.35,
-            onComplete: () {
-              game.playState = PlayState.gameOver;
-            }));
-      }
-    } else if (other is Bat) {
+    if (other is Bat) {
       velocity.y = -velocity.y;
       velocity.x = velocity.x +
           (position.x - other.position.x) / other.size.x * game.width;
