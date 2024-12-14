@@ -1,5 +1,5 @@
 {
   "dart.flutterSdkPath": ".fvm/versions/stable",
   "cmake.ignoreCMakeListsMissing": true,
-  "java.configuration.updateBuildConfiguration": "disabled",
+  "java.configuration.updateBuildConfiguration": "disabled"
 }
