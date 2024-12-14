@@ -1,5 +1,6 @@
 //import 'package:ankylo_cup/presentation/home/home_screen.dart';
-import 'package:ankylo_cup/presentation/games/brick-breaker/widgets/game_app.dart';
+import 'package:ankylo_cup/presentation/games/hockey/widgets/game_app.dart';
+//import 'package:ankylo_cup/presentation/games/brick-breaker/widgets/game_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'firebase_options.dart'; // Add this line
@@ -29,7 +30,7 @@ class MiniGamesApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const TitleScreen(),
+      home: const GameApp(),
     );
   }
 }

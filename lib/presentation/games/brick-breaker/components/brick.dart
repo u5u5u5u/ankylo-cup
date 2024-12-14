@@ -1,11 +1,10 @@
+import 'package:ankylo_cup/presentation/games/brick-breaker/brick_breaker.dart';
+import 'package:ankylo_cup/presentation/games/brick-breaker/components/ball.dart';
+import 'package:ankylo_cup/presentation/games/brick-breaker/components/bat.dart';
+import 'package:ankylo_cup/presentation/games/brick-breaker/config.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flutter/material.dart';
-
-import '../brick-breaker/config.dart';
-import '../brick-breaker/brick_breaker.dart';
-import 'ball.dart';
-import 'bat.dart';
 
 class Brick extends RectangleComponent
     with CollisionCallbacks, HasGameReference<BrickBreaker> {
