@@ -1,3 +1,4 @@
+import 'package:ankylo_cup/presentation/games/blackjack/blackjack.dart';
 import 'package:ankylo_cup/presentation/games/hockey/widgets/game_app.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -23,7 +24,7 @@ class SelectGameScreen extends StatelessWidget {
           _buildGameTile(context, 'ブロック崩し', BrickBreakerGameScreen(), false),
           _buildGameTile(context, 'チンチロ', ChinchiroGameScreen(), true),
           _buildGameTile(context, 'ホッケー', HockeyGameScreen(), true),
-          _buildGameTile(context, 'Coming Soon ...', Container(), false),
+          _buildGameTile(context, 'ブラックジャック', BlackjackGame(), false),
         ],
       ),
     );

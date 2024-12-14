@@ -23,7 +23,7 @@ class RoomCreateScreen extends StatelessWidget {
           _buildGameTile(context, 'ブロック崩し', BrickBreakerGameScreen(), false),
           _buildGameTile(context, 'チンチロ', ChinchiroGameScreen(), true),
           _buildGameTile(context, 'ホッケー', HockeyGameScreen(), true),
-          _buildGameTile(context, 'Coming Soon ...', Container(), false),
+          _buildGameTile(context, 'ブラックジャック', Container(), false),
         ],
       ),
     );
