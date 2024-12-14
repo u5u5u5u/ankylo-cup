@@ -1,4 +1,4 @@
-package com.example.ankylo_cup
+package com.antimobile.ankylo
 
 import io.flutter.embedding.android.FlutterActivity
 
