@@ -1,0 +1,51 @@
+syntax = "proto3";
+
+package user;
+
+option go_package = "github.com/tsunakit99/ankylo-cup-backend/internal/pb/user";
+
+// コイン追加用メソッド、コインランキングメソッドを追加
+service UserService {
+  rpc SignUp (SignUpRequest) returns (SignUpResponse);
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+  rpc AddCoin (AddCoinRequest) returns (AddCoinResponse);
+  rpc GetTop10ByCoin (GetTop10ByCoinRequest) returns (GetTop10ByCoinResponse);
+}
+
+message SignUpRequest {}
+
+message SignUpResponse {
+  string user_id = 1;
+  string email = 2;
+  string display_name = 3;
+  string avatar_url = 4;
+}
+
+message GetUserRequest {
+  string user_id = 1;
+}
+
+message GetUserResponse {
+  string user_id = 1;
+  string display_name = 2;
+}
+
+// coin関連
+message AddCoinRequest {
+  int32 amount = 1; // 追加するコイン数
+}
+
+message AddCoinResponse {
+  string message = 1; // "Coin added"
+}
+
+message GetTop10ByCoinRequest {}
+message GetTop10ByCoinResponse {
+  repeated TopUserByCoin users = 1;
+}
+
+message TopUserByCoin {
+  string user_id = 1;
+  string display_name = 2;
+  int32 coin = 3;
+}

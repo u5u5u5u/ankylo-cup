@@ -1,0 +1,33 @@
+syntax = "proto3";
+
+package score;
+
+option go_package = "github.com/tsunakit99/ankylo-cup-backend/internal/pb/score";
+
+service ScoreService {
+  rpc RecordScore (RecordScoreRequest) returns (RecordScoreResponse);
+  rpc GetTop10ScoresByGame (GetTop10ScoresByGameRequest) returns (GetTop10ScoresByGameResponse);
+}
+
+message RecordScoreRequest {
+  int32 game_id = 1;
+  int32 score = 2;
+  // user_idはトークンから取得
+}
+
+message RecordScoreResponse {
+  string message = 1;
+}
+
+message GetTop10ScoresByGameRequest {
+  int32 game_id = 1;
+}
+
+message GetTop10ScoresByGameResponse {
+  repeated TopScoreEntry scores = 1;
+}
+
+message TopScoreEntry {
+  string user_id = 1;
+  int32 score = 2;
+}

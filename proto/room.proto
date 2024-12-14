@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+package room;
+
+option go_package = "github.com/tsunakit99/ankylo-cup-backend/internal/pb/room";
+
+service RoomService {
+  rpc CreateRoom (CreateRoomRequest) returns (CreateRoomResponse);
+  rpc JoinRoom (JoinRoomRequest) returns (JoinRoomResponse);
+  
+  // Game開始時にプレイ中のデータをストリーミング
+  rpc StartGame (stream GameAction) returns (stream GameAction);
+}
+
+message CreateRoomRequest {
+  int32 game_id = 1; // どのゲームでルームを作るか
+}
+
+message CreateRoomResponse {
+  int32 room_id = 1;
+  string status = 2; // "waiting"
+}
+
+message JoinRoomRequest {
+  int32 room_id = 1;
+}
+
+message JoinRoomResponse {
+  int32 room_id = 1;
+  string status = 2; // "playing"
+  // ここでplayer2が設定される
+}
+
+message GameAction {
+  // 双方向ストリーミング用メッセージ
+  // ゲームごとのアクション、座標、得点などを送受信
+  string action = 1;
+  string data = 2;
+}
