@@ -1,7 +1,7 @@
 plugins {
     id "com.android.application"
     // START: FlutterFire Configuration
-    id 'com.google.gms.google-services'
+    id 'com.google.gms.google-services' version '4.4.2' apply false
     // END: FlutterFire Configuration
     id "kotlin-android"
     // The Flutter Gradle Plugin must be applied after the Android and Kotlin Gradle plugins.
@@ -31,7 +31,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        minSdkVersion 23        
+        minSdkVersion 30
     }
 
     buildTypes {
@@ -40,6 +40,12 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
         }
+    }
+
+    dependencies {
+        implementation 'com.google.firebase:firebase-auth'
+        implementation 'com.google.android.gms:play-services-auth'
+        implementation platform('com.google.firebase:firebase-bom:33.7.0')
     }
 }
 
