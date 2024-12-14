@@ -52,9 +52,17 @@ class Brick extends RectangleComponent
     game.score.value++;
 
     if (game.world.children.query<Brick>().length == 1) {
-      game.playState = PlayState.won;
       game.world.removeAll(game.world.children.query<Ball>());
       game.world.removeAll(game.world.children.query<Bat>());
+      if (stageNumber == 3) {
+        game.playState = PlayState.won;
+        return;
+      } else {
+        stageNumber++;
+        Future.delayed(const Duration(seconds: 3), () {
+          game.stageCreate(stageNumber);
+        });
+      }
     }
   }
 }
