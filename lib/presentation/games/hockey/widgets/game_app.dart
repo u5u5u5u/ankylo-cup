@@ -1,7 +1,7 @@
-import 'package:ankylo_cup/presentation/games/brick-breaker/brick_breaker.dart';
-import 'package:ankylo_cup/presentation/games/brick-breaker/config.dart';
-import 'package:ankylo_cup/presentation/games/brick-breaker/widgets/overlay_screen.dart';
-import 'package:ankylo_cup/presentation/games/brick-breaker/widgets/score_card.dart';
+import 'package:ankylo_cup/presentation/games/hockey/config.dart';
+import 'package:ankylo_cup/presentation/games/hockey/hockey.dart';
+import 'package:ankylo_cup/presentation/games/hockey/widgets/overlay_screen.dart';
+import 'package:ankylo_cup/presentation/games/hockey/widgets/score_card.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -14,12 +14,12 @@ class GameApp extends StatefulWidget {
 }
 
 class _GameAppState extends State<GameApp> {
-  late final BrickBreaker game;
+  late final Hockey game;
 
   @override
   void initState() {
     super.initState();
-    game = BrickBreaker();
+    game = Hockey();
   }
 
   @override
@@ -51,7 +51,10 @@ class _GameAppState extends State<GameApp> {
               child: Center(
                 child: Column(
                   children: [
-                    ScoreCard(score: game.score),
+                    ScoreCard(
+                      score: game.score,
+                      lifeRemain: game.lifeRemain,
+                    ),
                     Expanded(
                       child: FittedBox(
                         child: SizedBox(
@@ -63,16 +66,11 @@ class _GameAppState extends State<GameApp> {
                               PlayState.welcome.name: (context, game) =>
                                   const OverlayScreen(
                                     title: 'TAP TO PLAY',
-                                    subtitle: 'Use arrow keys or swipe',
+                                    subtitle: 'Tilting the device to move',
                                   ),
                               PlayState.gameOver.name: (context, game) =>
                                   const OverlayScreen(
                                     title: 'G A M E   O V E R',
-                                    subtitle: 'Tap to Play Again',
-                                  ),
-                              PlayState.won.name: (context, game) =>
-                                  const OverlayScreen(
-                                    title: 'Y O U   W O N ! ! !',
                                     subtitle: 'Tap to Play Again',
                                   ),
                             },
