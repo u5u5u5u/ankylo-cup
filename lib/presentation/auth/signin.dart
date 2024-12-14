@@ -24,39 +24,22 @@ class _SigninScreenState extends State<SigninScreen> {
   User? _user;
 
   // Googleサインインメソッド
-  Future<User?> signInWithGoogle() async {
-    try {
-      print("Starting Google Sign-In process");
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-      print("Google User: $googleUser");
+  Future<UserCredential> signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
 
-      if (googleUser == null) {
-        print("Google Sign-In was canceled");
-        return null;
-      }
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
 
-      final GoogleSignInAuthentication googleAuth =
-          await googleUser.authentication;
-      print("Google Authentication: $googleAuth");
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
 
-      final AuthCredential credential = GoogleAuthProvider.credential(
-        accessToken: googleAuth.accessToken,
-        idToken: googleAuth.idToken,
-      );
-
-      final UserCredential userCredential =
-          await _auth.signInWithCredential(credential);
-      final User? user = userCredential.user;
-
-      print("Firebase User: $user");
-      setState(() {
-        _user = user;
-      });
-      return user;
-    } catch (e) {
-      print("Error during Google Sign In: $e");
-      return null;
-    }
+    // Once signed in, return the UserCredential
+    return await FirebaseAuth.instance.signInWithCredential(credential);
   }
 
   // サインアウトメソッド
@@ -71,9 +54,6 @@ class _SigninScreenState extends State<SigninScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Firebase Google Sign In'),
-      ),
       body: Center(
         child: _user == null
             ? ElevatedButton(
