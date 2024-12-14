@@ -5,21 +5,37 @@ import 'package:ankylo_cup/presentation/games/hockey/widgets/score_card.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ankylo_cup/services/score_services.dart';
+import 'package:ankylo_cup/presentation/page/select_mode/select_mode_screen.dart';
 
 class HockeyGameScreen extends StatefulWidget {
   const HockeyGameScreen({super.key});
 
   @override
-  State<HockeyGameScreen> createState() => _GameAppState();
+  State<HockeyGameScreen> createState() => _HockeyGameScreenState();
 }
 
-class _GameAppState extends State<HockeyGameScreen> {
+class _HockeyGameScreenState extends State<HockeyGameScreen> {
   late final Hockey game;
 
   @override
   void initState() {
     super.initState();
     game = Hockey();
+  }
+
+  Future<void> _exitGame() async {
+    try {
+      print('Score: ${game.score.value}');
+      await ScoreService().recordScore(game.score.value);
+    } catch (e) {
+      print('Failed to record score: $e');
+    } finally {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SelectModeScreen()),
+      );
+    }
   }
 
   @override
@@ -69,9 +85,11 @@ class _GameAppState extends State<HockeyGameScreen> {
                                     subtitle: 'Tilting the device to move',
                                   ),
                               PlayState.gameOver.name: (context, game) =>
-                                  const OverlayScreen(
+                                  OverlayScreen(
                                     title: 'G A M E   O V E R',
                                     subtitle: 'Tap to Play Again',
+                                    showExitButton: true,
+                                    onExitPressed: _exitGame,
                                   ),
                             },
                           ),

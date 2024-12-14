@@ -27,10 +27,10 @@ class _BrickBreakerGameScreenState extends State<BrickBreakerGameScreen> {
     scoreNotifier = game.score;
   }
 
-  void _exitGame() async {
+  Future<void> _exitGame() async {
     try {
       print('Score: ${scoreNotifier.value}');
-      final response = await ScoreService().recordScore(scoreNotifier.value);
+      await ScoreService().recordScore(scoreNotifier.value);
     } catch (e) {
       print('Failed to record score: $e');
     } finally {
