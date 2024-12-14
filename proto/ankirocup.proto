@@ -1,0 +1,55 @@
+syntax = "proto3";
+
+package ankylo_up;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "proto/pb";
+
+message User {
+  string id = 1;
+  string display_name = 2;
+  string avatar_url = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+message Game {
+  int32 id = 1;
+  string name = 2;
+  int32 max_players = 3;
+  google.protobuf.Timestamp created_at = 4;
+  google.protobuf.Timestamp updated_at = 5;
+}
+
+message Room {
+  int32 id = 1;
+  int32 game_id = 2;
+  string player1_id = 3;
+  string player2_id = 4;
+  string status = 5;
+  google.protobuf.Timestamp created_at = 6;
+  google.protobuf.Timestamp updated_at = 7;
+}
+
+message Score {
+  int32 id = 1;
+  string user_id = 2;
+  int32 game_id = 3;
+  int32 score = 4;
+  google.protobuf.Timestamp played_at = 5;
+  int32 room_id = 6;
+}
+
+service UserService {
+  rpc GetUser (GetUserRequest) returns (GetUserResponse);
+}
+
+message GetUserRequest {
+  string user_id = 1;
+}
+
+message GetUserResponse {
+  string user_id = 1;
+  string display_name = 2;
+}
