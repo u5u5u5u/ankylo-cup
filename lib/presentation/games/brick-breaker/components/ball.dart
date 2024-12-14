@@ -1,12 +1,11 @@
+import 'package:ankylo_cup/presentation/games/brick-breaker/brick_breaker.dart';
+import 'package:ankylo_cup/presentation/games/brick-breaker/components/bat.dart';
+import 'package:ankylo_cup/presentation/games/brick-breaker/components/brick.dart';
+import 'package:ankylo_cup/presentation/games/brick-breaker/components/play_area.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
-
-import '../brick-breaker/brick_breaker.dart';
-import 'bat.dart';
-import 'brick.dart';
-import 'play_area.dart';
 
 class Ball extends CircleComponent
     with CollisionCallbacks, HasGameReference<BrickBreaker> {
