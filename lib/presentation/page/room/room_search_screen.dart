@@ -1,4 +1,6 @@
+import 'package:ankylo_cup/services/room_services.dart';
 import 'package:flutter/material.dart';
+import 'package:ankylo_cup/theme/app_theme.dart';
 
 class RoomSearchScreen extends StatefulWidget {
   @override
@@ -8,12 +10,30 @@ class RoomSearchScreen extends StatefulWidget {
 class _RoomSearchScreenState extends State<RoomSearchScreen> {
   final TextEditingController _controller = TextEditingController();
   String _roomInfo = '';
+  bool _isLoading = false;
 
-  void _searchRoom() {
+  void _searchRoom() async {
     setState(() {
-      _roomInfo =
-          'Room ID: ${_controller.text}'; // Replace with actual search logic
+      _roomInfo = 'Room ID: ${_controller.text}';
+      _isLoading = true;
     });
+
+    try {
+      int roomId = int.parse(_controller.text);
+      final response = await RoomServices().joinRoom(roomId);
+      print('Response: ${response}');
+      setState(() {
+        _roomInfo = 'Successfully joined the room';
+      });
+    } catch (e) {
+      setState(() {
+        _roomInfo = 'Failed to join the room: $e';
+      });
+    } finally {
+      setState(() {
+        _isLoading = false;
+      });
+    }
   }
 
   @override
@@ -65,7 +85,7 @@ class _RoomSearchScreenState extends State<RoomSearchScreen> {
               ),
             ),
             SizedBox(height: 16.0),
-            Text(_roomInfo),
+            Text(_roomInfo, style: TextStyle(fontSize: 10)),
           ],
         ),
       ),
