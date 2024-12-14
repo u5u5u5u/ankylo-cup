@@ -1,10 +1,12 @@
-import 'package:ankylo_cup/presentation/home/home_screen.dart';
+//import 'package:ankylo_cup/presentation/home/home_screen.dart';
+import 'package:ankylo_cup/presentation/games/brick-breaker/widgets/game_app.dart';
 import 'package:flutter/material.dart';
 import 'firebase_options.dart'; // Add this line
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
 
 void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -24,7 +26,7 @@ class MiniGamesApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const HomeScreen(),
+      home: const GameApp(),
     );
   }
 }
