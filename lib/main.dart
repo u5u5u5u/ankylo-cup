@@ -1,6 +1,7 @@
 //import 'package:ankylo_cup/presentation/home/home_screen.dart';
 import 'package:ankylo_cup/presentation/games/brick-breaker/widgets/game_app.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'firebase_options.dart'; // Add this line
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
@@ -14,7 +15,8 @@ void main() async {
   // await FirebaseAppCheck.instance.activate(
   //   androidProvider: AndroidProvider.debug,
   // );
-  runApp(const MiniGamesApp());
+
+  runApp(ProviderScope(child: MiniGamesApp()));
 }
 
 class MiniGamesApp extends StatelessWidget {
