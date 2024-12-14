@@ -8,7 +8,7 @@ class RoomScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('ルーム'),
-        backgroundColor: const Color.fromARGB(200, 127, 65, 192),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Center(
         child: Row(
@@ -25,7 +25,7 @@ class RoomScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.width * 0.45,
                 width: MediaQuery.of(context).size.width * 0.45,
                 child: Card(
-                  color: const Color.fromARGB(200, 203, 189, 247),
+                  color: Theme.of(context).cardColor,
                   child: Center(
                     child: Text(
                       '作成',
@@ -47,7 +47,7 @@ class RoomScreen extends StatelessWidget {
                 height: MediaQuery.of(context).size.width * 0.45,
                 width: MediaQuery.of(context).size.width * 0.45,
                 child: Card(
-                  color: const Color.fromARGB(200, 203, 189, 247),
+                  color: Theme.of(context).cardColor,
                   child: Center(
                     child: Text(
                       '検索',

@@ -11,7 +11,7 @@ class RoomCreateScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('ゲーム選択'),
-        backgroundColor: const Color.fromARGB(200, 127, 65, 192),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: GridView.count(
         crossAxisCount: 2,
@@ -38,10 +38,7 @@ class RoomCreateScreen extends StatelessWidget {
         );
       },
       child: Card(
-        color: const Color.fromARGB(200, 203, 189, 247),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(5.0),
-        ),
+        color: Theme.of(context).cardColor,
         child: Center(
           child: Text(
             title,

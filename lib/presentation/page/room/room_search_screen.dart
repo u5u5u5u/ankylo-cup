@@ -20,6 +20,7 @@ class _RoomSearchScreenState extends State<RoomSearchScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('ルーム検索'),
+        backgroundColor: Theme.of(context).primaryColor,
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
