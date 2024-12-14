@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:ankylo_cup/presentation/games/brick-breaker/widgets/game_app.dart';
+import 'package:ankylo_cup/presentation/games/chinchiro/chinchiro_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
@@ -7,7 +8,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color.fromARGB(200, 127, 65, 192),
         automaticallyImplyLeading: false,
       ),
       body: GridView.count(
@@ -17,9 +18,9 @@ class HomeScreen extends StatelessWidget {
         padding: EdgeInsets.all(16.0),
         children: <Widget>[
           _buildGameTile(context, 'ブロック崩し', GameApp(), true),
-          _buildGameTile(context, 'Game 2', GameApp(), false),
-          _buildGameTile(context, 'Game 3', GameApp(), true),
-          _buildGameTile(context, 'Game 4', GameApp(), false),
+          _buildGameTile(context, 'チンチロ', ChinchiroGameScreen(), true),
+          _buildGameTile(context, 'Coming Soon ...', Container(), true),
+          _buildGameTile(context, 'Coming Soon ...', Container(), false),
         ],
       ),
     );
@@ -39,7 +40,10 @@ class HomeScreen extends StatelessWidget {
         }
       },
       child: Card(
-        color: Colors.blueAccent,
+        color: const Color.fromARGB(200, 203, 189, 247),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(5.0),
+        ),
         child: Center(
           child: Text(
             title,
@@ -55,6 +59,9 @@ class HomeScreen extends StatelessWidget {
       context: context,
       builder: (BuildContext context) {
         return SimpleDialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10.0),
+          ),
           title: Text('モード選択'),
           children: [
             Center(
