@@ -8,7 +8,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Home'),
-        backgroundColor: Colors.blueAccent,
+        backgroundColor: const Color.fromARGB(200, 127, 65, 192),
         automaticallyImplyLeading: false,
       ),
       body: GridView.count(
@@ -19,8 +19,8 @@ class HomeScreen extends StatelessWidget {
         children: <Widget>[
           _buildGameTile(context, 'ブロック崩し', GameApp(), true),
           _buildGameTile(context, 'チンチロ', ChinchiroGameScreen(), true),
-          _buildGameTile(context, 'Game 3', GameApp(), true),
-          _buildGameTile(context, 'Game 4', GameApp(), false),
+          _buildGameTile(context, 'Coming Soon ...', Container(), true),
+          _buildGameTile(context, 'Coming Soon ...', Container(), false),
         ],
       ),
     );
@@ -40,7 +40,7 @@ class HomeScreen extends StatelessWidget {
         }
       },
       child: Card(
-        color: Colors.blueAccent,
+        color: const Color.fromARGB(200, 203, 189, 247),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(5.0),
         ),
