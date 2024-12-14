@@ -1,14 +1,12 @@
+import 'package:ankylo_cup/presentation/games/hockey/hockey.dart';
 import 'package:flame/collisions.dart';
 import 'package:flame/components.dart';
-import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 
-import '../brick-breaker/brick_breaker.dart';
-
-class Bat extends PositionComponent
-    with DragCallbacks, HasGameReference<BrickBreaker> {
-  Bat({
+class Bat2 extends PositionComponent
+    with DragCallbacks, HasGameReference<Hockey> {
+  Bat2({
     required this.cornerRadius,
     required super.position,
     required super.size,
@@ -20,7 +18,7 @@ class Bat extends PositionComponent
   final Radius cornerRadius;
 
   final _paint = Paint()
-    ..color = const Color(0xff1e6091)
+    ..color = const Color.fromARGB(255, 30, 145, 30)
     ..style = PaintingStyle.fill;
 
   @override

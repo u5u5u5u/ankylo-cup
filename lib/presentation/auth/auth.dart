@@ -1,8 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-// import 'package:ankylo_cup/presentation/auth/loading.dart';
 import 'package:ankylo_cup/presentation/auth/signin.dart';
-import 'package:ankylo_cup/presentation/home/home_screen.dart';
+import 'package:ankylo_cup/presentation/page/select_mode/select_mode_screen.dart';
 
 class Auth extends StatelessWidget {
   const Auth({super.key});
@@ -13,14 +12,13 @@ class Auth extends StatelessWidget {
       stream: FirebaseAuth.instance.authStateChanges(),
       builder: (context, snapshot) {
         if (snapshot.connectionState == ConnectionState.waiting) {
-          // return const LoadingScreen();
           return const Scaffold(
             body: Center(
               child: CircularProgressIndicator(),
             ),
           );
         } else if (snapshot.hasData) {
-          return HomeScreen();
+          return SelectModeScreen();
         } else {
           return SigninScreen();
         }
