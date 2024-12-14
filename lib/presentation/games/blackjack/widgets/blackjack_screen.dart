@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ankylo_cup/presentation/games/blackjack/components/deck.dart';
 import 'package:ankylo_cup/presentation/games/blackjack/components/hand.dart';
+import 'package:ankylo_cup/services/score_services.dart';
+import 'package:ankylo_cup/presentation/page/select_mode/select_mode_screen.dart';
 
 class BlackjackScreen extends StatefulWidget {
   @override
@@ -53,6 +55,20 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
     });
   }
 
+  Future<void> _exitGame() async {
+    try {
+      print('Score: ${_playerHand.value}');
+      await ScoreService().recordScore(_playerHand.value);
+    } catch (e) {
+      print('Failed to record score: $e');
+    } finally {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SelectModeScreen()),
+      );
+    }
+  }
+
   void _showResult(String result) {
     showDialog(
       context: context,
@@ -71,6 +87,10 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
                   _startGame();
                 });
               },
+            ),
+            TextButton(
+              child: Text('exit'),
+              onPressed: _exitGame,
             ),
           ],
         );
