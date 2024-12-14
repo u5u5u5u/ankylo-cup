@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
+import 'package:ankylo_cup/theme/app_theme.dart';
 
 class OverlayScreen extends StatelessWidget {
   const OverlayScreen({

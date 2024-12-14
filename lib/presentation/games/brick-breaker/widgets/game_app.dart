@@ -5,6 +5,7 @@ import 'package:ankylo_cup/presentation/games/brick-breaker/widgets/score_card.d
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:ankylo_cup/theme/app_theme.dart';
 
 class BrickBreakerGameScreen extends StatefulWidget {
   const BrickBreakerGameScreen({super.key});
@@ -28,10 +29,7 @@ class _BrickBreakerGameScreenState extends State<BrickBreakerGameScreen> {
       debugShowCheckedModeBanner: false,
       theme: ThemeData(
         useMaterial3: true,
-        textTheme: GoogleFonts.pressStart2pTextTheme().apply(
-          bodyColor: const Color(0xff184e77),
-          displayColor: const Color(0xff184e77),
-        ),
+        textTheme: AppTheme.theme.textTheme,
       ),
       home: Scaffold(
         body: Container(
@@ -40,8 +38,8 @@ class _BrickBreakerGameScreenState extends State<BrickBreakerGameScreen> {
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color(0xffa9d6e5),
-                Color(0xfff2e8cf),
+                Color.fromARGB(255, 108, 51, 170),
+                Color.fromARGB(255, 10, 57, 167),
               ],
             ),
           ),
