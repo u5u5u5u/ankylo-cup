@@ -1,3 +1,4 @@
+import 'package:ankylo_cup/services/user_services.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -38,8 +39,37 @@ class _SigninScreenState extends State<SigninScreen> {
       idToken: googleAuth?.idToken,
     );
 
-    // Once signed in, return the UserCredential
-    return await FirebaseAuth.instance.signInWithCredential(credential);
+    // Check if the user already exists
+    bool userExists = await checkUserExists(credential);
+    await UserService().createUser();
+    if (userExists) {
+      // Sign in the existing user
+      return await FirebaseAuth.instance.signInWithCredential(credential);
+    } else {
+      // Sign up the new user
+      
+      return await signUpWithGoogle(credential);
+    }
+  }
+
+  Future<bool> checkUserExists(AuthCredential credential) async {
+    try {
+      final authResult =
+          await FirebaseAuth.instance.signInWithCredential(credential);
+      return authResult.user != null;
+    } catch (e) {
+      // If sign in fails, it means the user does not exist
+      return false;
+    }
+  }
+
+  Future<UserCredential> signUpWithGoogle(AuthCredential credential) async {
+    // Sign up the new user
+    final userCredential =
+        await FirebaseAuth.instance.signInWithCredential(credential);
+    // Create a new user in the database
+    await UserService().createUser();
+    return userCredential;
   }
 
   // サインアウトメソッド
