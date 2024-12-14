@@ -5,9 +5,9 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:sensors_plus/sensors_plus.dart'; // Add this import
 
-import 'components/components.dart';
+import '../components/components.dart';
 import 'config.dart';
 
 enum PlayState { welcome, playing, gameOver, won }
@@ -28,7 +28,9 @@ class BrickBreaker extends FlameGame
   double get height => size.y;
 
   late PlayState _playState;
+  late StreamSubscription<AccelerometerEvent> _accelerometerSubscription;
   PlayState get playState => _playState;
+
   set playState(PlayState playState) {
     _playState = playState;
     switch (playState) {
@@ -52,6 +54,20 @@ class BrickBreaker extends FlameGame
     world.add(PlayArea());
 
     playState = PlayState.welcome;
+    _accelerometerSubscription = accelerometerEventStream(
+      samplingPeriod: SensorInterval.gameInterval,
+    ).listen((event) {
+      if (playState == PlayState.playing) {
+        final bats = world.children.query<Bat>();
+        if (bats.isNotEmpty) {
+          final bat = bats.first;
+          final tilt = event.x;
+          final newX = (bat.position.x - tilt * 5)
+              .clamp(batWidth / 2, width - batWidth / 2);
+          bat.position = Vector2(newX.toDouble(), bat.position.y);
+        }
+      }
+    });
   }
 
   void startGame() {
@@ -101,19 +117,10 @@ class BrickBreaker extends FlameGame
   }
 
   @override
-  KeyEventResult onKeyEvent(
-      KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    super.onKeyEvent(event, keysPressed);
-    switch (event.logicalKey) {
-      case LogicalKeyboardKey.arrowLeft:
-        world.children.query<Bat>().first.moveBy(-batStep);
-      case LogicalKeyboardKey.arrowRight:
-        world.children.query<Bat>().first.moveBy(batStep);
-      case LogicalKeyboardKey.space:
-      case LogicalKeyboardKey.enter:
-        startGame();
-    }
-    return KeyEventResult.handled;
+  void onRemove() {
+    // Cancel accelerometer subscription
+    _accelerometerSubscription.cancel();
+    super.onRemove();
   }
 
   @override

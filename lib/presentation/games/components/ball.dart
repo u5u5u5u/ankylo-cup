@@ -3,7 +3,7 @@ import 'package:flame/components.dart';
 import 'package:flame/effects.dart';
 import 'package:flutter/material.dart';
 
-import '../brick_breaker.dart';
+import '../brick-breaker/brick_breaker.dart';
 import 'bat.dart';
 import 'brick.dart';
 import 'play_area.dart';
