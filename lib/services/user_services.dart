@@ -1,3 +1,5 @@
+import 'dart:core';
+
 import 'package:ankylo_cup/proto/user.pbgrpc.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:grpc/grpc.dart';
@@ -42,6 +44,21 @@ class UserService {
 
     return await _stub.signUp(request, options: options);
   }
+  Future<AddCoinResponse> addCoin(int amount) async {
+    final user = FirebaseAuth.instance.currentUser;
+    final idToken = await user!.getIdToken();
+    if (idToken == null) {
+      throw Exception('Failed to get Firebase ID token');
+    }
+
+    final options = CallOptions(metadata: {'Authorization': 'Bearer $idToken'});
+
+    final request = AddCoinRequest()..amount = amount;
+
+    return await _stub.addCoin(request, options: options);
+  }
+
+  
   // サービス終了時にチャネルを閉じる
   Future<void> shutdown() async {
     await _channel.shutdown();
