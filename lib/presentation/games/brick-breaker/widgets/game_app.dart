@@ -2,10 +2,12 @@ import 'package:ankylo_cup/presentation/games/brick-breaker/brick_breaker.dart';
 import 'package:ankylo_cup/presentation/games/brick-breaker/config.dart';
 import 'package:ankylo_cup/presentation/games/brick-breaker/widgets/overlay_screen.dart';
 import 'package:ankylo_cup/presentation/games/brick-breaker/widgets/score_card.dart';
+import 'package:ankylo_cup/presentation/page/select_mode/select_mode_screen.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:ankylo_cup/theme/app_theme.dart';
+import 'package:ankylo_cup/services/score_services.dart';
 
 class BrickBreakerGameScreen extends StatefulWidget {
   const BrickBreakerGameScreen({super.key});
@@ -16,11 +18,40 @@ class BrickBreakerGameScreen extends StatefulWidget {
 
 class _BrickBreakerGameScreenState extends State<BrickBreakerGameScreen> {
   late final BrickBreaker game;
+  late final ValueNotifier<int> scoreNotifier;
 
   @override
   void initState() {
     super.initState();
     game = BrickBreaker();
+    scoreNotifier = game.score;
+  }
+
+  void _exitGame() async {
+    try {
+      print('Score: ${scoreNotifier.value}');
+      final response = await ScoreService().recordScore(scoreNotifier.value);
+    } catch (e) {
+      print('Failed to record score: $e');
+    } finally {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SelectModeScreen()),
+      );
+    }
+  }
+
+  void _againGame() async {
+    try {
+      final response = await ScoreService().recordScore(scoreNotifier.value);
+    } catch (e) {
+      print('Failed to record score: $e');
+    } finally {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => BrickBreakerGameScreen()),
+      );
+    }
   }
 
   @override
@@ -49,7 +80,7 @@ class _BrickBreakerGameScreenState extends State<BrickBreakerGameScreen> {
               child: Center(
                 child: Column(
                   children: [
-                    ScoreCard(score: game.score),
+                    ScoreCard(score: scoreNotifier),
                     Expanded(
                       child: FittedBox(
                         child: SizedBox(
@@ -64,16 +95,20 @@ class _BrickBreakerGameScreenState extends State<BrickBreakerGameScreen> {
                                     subtitle: 'Use arrow keys or swipe',
                                   ),
                               PlayState.gameOver.name: (context, game) =>
-                                  const OverlayScreen(
+                                  OverlayScreen(
                                     title: 'G A M E   O V E R',
                                     subtitle: 'Tap to Play Again',
-                                    showExitButton: true, // 終了ボタンを表示
+                                    showExitButton: true,
+                                    onExitPressed: _exitGame,
+                                    onAgainPressed: _againGame,
                                   ),
                               PlayState.won.name: (context, game) =>
-                                  const OverlayScreen(
+                                  OverlayScreen(
                                     title: 'Y O U   W O N ! ! !',
                                     subtitle: 'Tap to Play Again',
-                                    showExitButton: true, // 終了ボタンを表示
+                                    showExitButton: true,
+                                    onExitPressed: _exitGame,
+                                    onAgainPressed: _againGame,
                                   ),
                             },
                           ),
