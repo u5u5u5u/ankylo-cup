@@ -1,37 +1,38 @@
 import 'package:flutter/material.dart';
+import 'package:ankylo_cup/presentation/games/brick-breaker/widgets/game_app.dart';
 
 class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ゲームを選択'),
+        title: Text('Select a Game'),
       ),
-      body: GameSelectionScreen(),
+      body: GridView.count(
+        crossAxisCount: 2,
+        children: <Widget>[
+          _buildGameTile(context, 'Game 1', GameApp()),
+          _buildGameTile(context, 'Game 2', GameApp()),
+          _buildGameTile(context, 'Game 3', GameApp()),
+          _buildGameTile(context, 'Game 4', GameApp()),
+        ],
+      ),
     );
   }
-}
 
-class GameSelectionScreen extends StatelessWidget {
-  final List<String> games = [
-    'ゲーム1',
-    'ゲーム2',
-    'ゲーム3',
-    'ゲーム4',
-  ];
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: games.length,
-      itemBuilder: (context, index) {
-        return ListTile(
-          title: Text(games[index]),
-          onTap: () {
-            // ゲーム選択時の処理をここに追加
-          },
+  Widget _buildGameTile(BuildContext context, String title, Widget game) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => game),
         );
       },
+      child: Card(
+        child: Center(
+          child: Text(title),
+        ),
+      ),
     );
   }
 }
