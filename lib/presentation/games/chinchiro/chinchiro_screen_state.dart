@@ -42,7 +42,7 @@ class GameState {
       currentPlayer: 1,
       playerScores: [0, 0],
       currentDiceValues: [1, 1, 1],
-      gameMessage: "Player 1's Turn: Press Ready to Start!",
+      gameMessage: "プレイヤー1の番です",
       isReady: false,
       isRolling: false,
       isShaking: false,

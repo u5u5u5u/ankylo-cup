@@ -3,7 +3,6 @@ import 'package:ankylo_cup/presentation/games/chinchiro/chinchiro_screen_state_n
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-
 class ChinchiroGameScreen extends ConsumerStatefulWidget {
   const ChinchiroGameScreen({Key? key}) : super(key: key);
 
@@ -43,8 +42,10 @@ class ChinchiroGameScreenState extends ConsumerState<ChinchiroGameScreen>
     }
 
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text('チンチロゲーム'),
+        title: const Text('チンチロ'),
+        backgroundColor: Theme.of(context).primaryColor,
         automaticallyImplyLeading: true,
       ),
       body: Center(
@@ -149,28 +150,15 @@ class Dice extends StatelessWidget {
           angle: angle.toDouble(),
           child: Transform.rotate(
             angle: isInitial ? 0 : angleOffset,
-            child: Container(
-              width: 60,
-              height: 60,
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(10),
-                boxShadow: const [
-                  BoxShadow(
-                    color: Colors.black26,
-                    blurRadius: 4,
-                    offset: Offset(2, 2),
-                  ),
-                ],
-              ),
-              child: Center(
-                child: Transform.rotate(
-                  angle: isInitial ? 0 : -angleOffset,
-                  child: Text(
-                    value.toString(),
-                    style: const TextStyle(
-                        fontSize: 24, fontWeight: FontWeight.bold),
-                  ),
+            child: Center(
+              child: Transform.rotate(
+                angle: isInitial ? 0 : -angleOffset,
+                child: Text(
+                  _getDiceFace(value),
+                  style: const TextStyle(
+                      fontSize: 128,
+                      fontWeight: FontWeight.bold,
+                      color: Colors.black),
                 ),
               ),
             ),
@@ -178,5 +166,24 @@ class Dice extends StatelessWidget {
         );
       },
     );
+  }
+
+  String _getDiceFace(int value) {
+    switch (value) {
+      case 1:
+        return '⚀';
+      case 2:
+        return '⚁';
+      case 3:
+        return '⚂';
+      case 4:
+        return '⚃';
+      case 5:
+        return '⚄';
+      case 6:
+        return '⚅';
+      default:
+        return '';
+    }
   }
 }

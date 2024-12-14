@@ -49,7 +49,11 @@ class SelectModeScreen extends StatelessWidget {
                   child: Center(
                     child: Text(
                       'ソロ',
-                      style: TextStyle(fontSize: 24),
+                      style: TextStyle(
+                        fontSize: 50,
+                        color: Theme.of(context).primaryColor,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ),
                 ),
@@ -71,7 +75,7 @@ class SelectModeScreen extends StatelessWidget {
                   child: Center(
                     child: Text(
                       'マルチ',
-                      style: TextStyle(fontSize: 24),
+                      style: TextStyle(fontSize: 32),
                     ),
                   ),
                 ),
