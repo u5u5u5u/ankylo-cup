@@ -71,17 +71,9 @@ class BrickBreaker extends FlameGame
     });
   }
 
-  void startGame() {
-    if (playState == PlayState.playing) return;
-
-    world.removeAll(world.children.query<Ball>());
-    world.removeAll(world.children.query<Bat>());
+  void stageCreate(int stage) {
     world.removeAll(world.children.query<Brick>());
-
-    playState = PlayState.playing;
-    score.value = 0;
     brickHealth = 10;
-
     world.add(Ball(
         difficultyModifier: difficultyModifier,
         radius: ballRadius,
@@ -94,21 +86,73 @@ class BrickBreaker extends FlameGame
         size: Vector2(batWidth, batHeight),
         cornerRadius: const Radius.circular(ballRadius / 2),
         position: Vector2(width / 2, height * 0.95)));
-
-    for (var i = brickRows; i >= 1; i--) {
-      for (var j = 0; j < brickColumns; j++) {
-        world.add(Brick(
-          position: Vector2(
-            (j + 0.5) * brickWidth + (j + 1) * brickGutter,
-            (i + 2.0) * brickHeight + i * brickGutter,
-          ),
-          color: brickColors[9],
-          health: brickHealth,
-          maxhealth: brickHealth,
-        ));
+    if (stage == 1) {
+      brickWidth = (gameWidth - (brickGutter * (stage1[0].length + 1))) /
+          stage1[0].length;
+      for (var i = stage1.length - 1; i >= 0; i--) {
+        for (var j = 0; j < stage1[i].length; j++) {
+          world.add(Brick(
+            position: Vector2(
+              (j + 0.5) * brickWidth + (j + 1) * brickGutter,
+              (i + 2.0) * brickHeight + i * brickGutter,
+            ),
+            color: brickColors[9],
+            health: brickHealth,
+            maxhealth: brickHealth,
+          ));
+        }
+        brickHealth = (brickHealth * 1.3).toInt();
       }
-      brickHealth = (brickHealth * 1.3).toInt();
+    } else if (stage == 2) {
+      brickWidth = (gameWidth - (brickGutter * (stage2[0].length + 1))) /
+          stage2[0].length;
+      for (var i = stage2.length - 1; i >= 0; i--) {
+        for (var j = 0; j < stage2[i].length; j++) {
+          world.add(Brick(
+            position: Vector2(
+              (j + 0.5) * brickWidth + (j + 1) * brickGutter,
+              (i + 2.0) * brickHeight + i * brickGutter,
+            ),
+            color: brickColors[9],
+            health: brickHealth,
+            maxhealth: brickHealth,
+          ));
+        }
+        brickHealth = (brickHealth * 1.3).toInt();
+      }
+    } else if (stage == 3) {
+      brickWidth = (gameWidth - (brickGutter * (stage3[0].length + 1))) /
+          stage3[0].length;
+      for (var i = stage3.length - 1; i >= 0; i--) {
+        for (var j = 0; j < stage3[i].length; j++) {
+          world.add(Brick(
+            position: Vector2(
+              (j + 0.5) * brickWidth + (j + 1) * brickGutter,
+              (i + 2.0) * brickHeight + i * brickGutter,
+            ),
+            color: brickColors[9],
+            health: brickHealth,
+            maxhealth: brickHealth,
+          ));
+        }
+        brickHealth = (brickHealth * 1.3).toInt();
+      }
     }
+  }
+
+  void startGame() {
+    if (playState == PlayState.playing) return;
+
+    world.removeAll(world.children.query<Ball>());
+    world.removeAll(world.children.query<Bat>());
+    world.removeAll(world.children.query<Brick>());
+
+    playState = PlayState.playing;
+    score.value = 0;
+    brickHealth = 10;
+    stageNumber = 1;
+
+    stageCreate(stageNumber);
   }
 
   @override
