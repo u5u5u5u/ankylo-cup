@@ -45,6 +45,7 @@ class ChinchiroGameScreenState extends ConsumerState<ChinchiroGameScreen>
     return Scaffold(
       appBar: AppBar(
         title: const Text('チンチロゲーム'),
+        automaticallyImplyLeading: true,
       ),
       body: Center(
         child: Column(

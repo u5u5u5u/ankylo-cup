@@ -1,8 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ankylo_cup/presentation/games/brick-breaker/widgets/game_app.dart';
 import 'package:ankylo_cup/presentation/games/chinchiro/chinchiro_screen.dart';
+import 'package:ankylo_cup/presentation/account/account_screen.dart';
 
 class HomeScreen extends StatelessWidget {
+  final User? user;
+
+  HomeScreen({Key? key, this.user}) : super(key: key);
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -10,6 +16,20 @@ class HomeScreen extends StatelessWidget {
         title: Text('Home'),
         backgroundColor: const Color.fromARGB(200, 127, 65, 192),
         automaticallyImplyLeading: false,
+        actions: [
+          if (user != null)
+            IconButton(
+              icon: CircleAvatar(
+                backgroundImage: NetworkImage(user!.photoURL!),
+              ),
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AccountScreen()),
+                );
+              },
+            )
+        ],
       ),
       body: GridView.count(
         crossAxisCount: 2,
