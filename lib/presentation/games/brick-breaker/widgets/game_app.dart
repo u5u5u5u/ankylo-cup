@@ -6,14 +6,14 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class GameApp extends StatefulWidget {
-  const GameApp({super.key});
+class BrickBreakerGameScreen extends StatefulWidget {
+  const BrickBreakerGameScreen({super.key});
 
   @override
-  State<GameApp> createState() => _GameAppState();
+  State<BrickBreakerGameScreen> createState() => _BrickBreakerGameScreenState();
 }
 
-class _GameAppState extends State<GameApp> {
+class _BrickBreakerGameScreenState extends State<BrickBreakerGameScreen> {
   late final BrickBreaker game;
 
   @override

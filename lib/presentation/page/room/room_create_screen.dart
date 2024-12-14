@@ -1,3 +1,4 @@
+import 'package:ankylo_cup/presentation/games/hockey/widgets/game_app.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:ankylo_cup/presentation/games/brick-breaker/widgets/game_app.dart';
@@ -19,9 +20,9 @@ class RoomCreateScreen extends StatelessWidget {
         mainAxisSpacing: 10.0,
         padding: EdgeInsets.all(16.0),
         children: <Widget>[
-          _buildGameTile(context, 'ブロック崩し', GameApp(), false),
+          _buildGameTile(context, 'ブロック崩し', BrickBreakerGameScreen(), false),
           _buildGameTile(context, 'チンチロ', ChinchiroGameScreen(), true),
-          _buildGameTile(context, 'Coming Soon ...', Container(), true),
+          _buildGameTile(context, 'ホッケー', HockeyGameScreen(), true),
           _buildGameTile(context, 'Coming Soon ...', Container(), false),
         ],
       ),

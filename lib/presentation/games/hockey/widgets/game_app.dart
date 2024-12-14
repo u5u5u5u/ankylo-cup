@@ -6,14 +6,14 @@ import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class GameApp extends StatefulWidget {
-  const GameApp({super.key});
+class HockeyGameScreen extends StatefulWidget {
+  const HockeyGameScreen({super.key});
 
   @override
-  State<GameApp> createState() => _GameAppState();
+  State<HockeyGameScreen> createState() => _GameAppState();
 }
 
-class _GameAppState extends State<GameApp> {
+class _GameAppState extends State<HockeyGameScreen> {
   late final Hockey game;
 
   @override
