@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'firebase_options.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -25,8 +26,15 @@ class MiniGamesApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      theme: AppTheme.theme,
-      home: TitleScreen(),
+      title: 'Mini Games App',
+      theme: ThemeData(
+        useMaterial3: true,
+        textTheme: GoogleFonts.pressStart2pTextTheme().apply(
+          bodyColor: const Color(0xff184e77),
+          displayColor: const Color(0xff184e77),
+        ),
+      ),
+      home: const GameApp(),
     );
   }
 }

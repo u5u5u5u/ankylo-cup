@@ -38,6 +38,15 @@ class _SigninScreenState extends State<SigninScreen> {
       context,
       MaterialPageRoute(builder: (context) => SelectModeScreen()),
     );
+    // Once signed in, return the UserCredential
+    UserCredential userCredential = await _auth.signInWithCredential(credential);
+
+    // JWT トークンを取得して print
+    final idToken = await userCredential.user?.getIdToken();
+    final accessToken = await userCredential.user?.getIdToken();
+    print('ID Token: $idToken');
+    print('Access Token: $accessToken');
+    return userCredential;
   }
 
   // サインアウトメソッド
