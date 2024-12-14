@@ -2,7 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 // import 'package:ankylo_cup/presentation/auth/loading.dart';
 import 'package:ankylo_cup/presentation/auth/signin.dart';
-import 'package:ankylo_cup/presentation/home/home_screen.dart';
+import 'package:ankylo_cup/presentation/title/title_screen.dart';
 
 class Auth extends StatelessWidget {
   const Auth({super.key});
@@ -20,9 +20,9 @@ class Auth extends StatelessWidget {
             ),
           );
         } else if (snapshot.hasData) {
-          return const HomeScreen();
+          return const TitleScreen();
         } else {
-          return const SigninScreen();
+          return SigninScreen();
         }
       },
     );

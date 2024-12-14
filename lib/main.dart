@@ -4,15 +4,16 @@ import 'package:flutter/material.dart';
 import 'firebase_options.dart'; // Add this line
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_app_check/firebase_app_check.dart';
+import 'package:ankylo_cup/presentation/title/title_screen.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  await FirebaseAppCheck.instance.activate(
-    androidProvider: AndroidProvider.debug,
-  );
+  // await FirebaseAppCheck.instance.activate(
+  //   androidProvider: AndroidProvider.debug,
+  // );
   runApp(const MiniGamesApp());
 }
 
@@ -26,7 +27,7 @@ class MiniGamesApp extends StatelessWidget {
       theme: ThemeData(
         primarySwatch: Colors.blue,
       ),
-      home: const GameApp(),
+      home: const TitleScreen(),
     );
   }
 }

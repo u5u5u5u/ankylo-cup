@@ -31,7 +31,8 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
-        minSdkVersion 23  
+        minSdkVersion 23
+
     }
 
     buildTypes {
@@ -40,6 +41,11 @@ android {
             // Signing with the debug keys for now, so `flutter run --release` works.
             signingConfig = signingConfigs.debug
         }
+    }
+
+    dependencies {
+        implementation 'com.google.firebase:firebase-auth'
+        implementation 'com.google.android.gms:play-services-auth'
     }
 }
 
