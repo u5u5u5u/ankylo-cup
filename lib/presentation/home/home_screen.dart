@@ -17,7 +17,7 @@ class HomeScreen extends StatelessWidget {
         backgroundColor: const Color.fromARGB(200, 127, 65, 192),
         automaticallyImplyLeading: false,
         actions: [
-          if (user != null)
+          if (user != null && user!.photoURL != null)
             IconButton(
               icon: CircleAvatar(
                 backgroundImage: NetworkImage(user!.photoURL!),
@@ -25,10 +25,11 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => AccountScreen()),
+                  MaterialPageRoute(
+                      builder: (context) => AccountScreen(user: user)),
                 );
               },
-            )
+            ),
         ],
       ),
       body: GridView.count(
