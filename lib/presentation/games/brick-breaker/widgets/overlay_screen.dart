@@ -7,10 +7,12 @@ class OverlayScreen extends StatelessWidget {
     super.key,
     required this.title,
     required this.subtitle,
+    this.showExitButton = false, // 終了ボタンを表示するかどうかのフラグ
   });
 
   final String title;
   final String subtitle;
+  final bool showExitButton; // 終了ボタンを表示するかどうかのフラグ
 
   @override
   Widget build(BuildContext context) {
@@ -32,6 +34,36 @@ class OverlayScreen extends StatelessWidget {
               .fadeIn(duration: 1.seconds)
               .then()
               .fadeOut(duration: 1.seconds),
+          if (showExitButton) ...[
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(height: 16),
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // ゲーム画面を閉じる
+                  },
+                  child: const Text('exit', style: TextStyle(fontSize: 32)),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 38, vertical: 24),
+                  ),
+                ),
+                SizedBox(width: 16),
+                // again ボタン
+                ElevatedButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(); // ゲーム画面を閉じる
+                  },
+                  child: const Text('again', style: TextStyle(fontSize: 32)),
+                  style: ElevatedButton.styleFrom(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 38, vertical: 24),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ],
       ),
     );

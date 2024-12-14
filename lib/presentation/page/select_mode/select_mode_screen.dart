@@ -50,7 +50,7 @@ class SelectModeScreen extends StatelessWidget {
                     child: Text(
                       'solo',
                       style: TextStyle(
-                        fontSize: 35,
+                        fontSize: 30,
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
                       ),
@@ -76,7 +76,7 @@ class SelectModeScreen extends StatelessWidget {
                     child: Text(
                       'multi',
                       style: TextStyle(
-                        fontSize: 35,
+                        fontSize: 30,
                         color: Theme.of(context).primaryColor,
                         fontWeight: FontWeight.bold,
                       ),

@@ -67,11 +67,13 @@ class _BrickBreakerGameScreenState extends State<BrickBreakerGameScreen> {
                                   const OverlayScreen(
                                     title: 'G A M E   O V E R',
                                     subtitle: 'Tap to Play Again',
+                                    showExitButton: true, // 終了ボタンを表示
                                   ),
                               PlayState.won.name: (context, game) =>
                                   const OverlayScreen(
                                     title: 'Y O U   W O N ! ! !',
                                     subtitle: 'Tap to Play Again',
+                                    showExitButton: true, // 終了ボタンを表示
                                   ),
                             },
                           ),
