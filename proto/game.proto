@@ -1,0 +1,25 @@
+syntax = "proto3";
+
+package game;
+
+option go_package = "github.com/tsunakit99/ankylo-cup-backend/internal/pb/game";
+
+import "models.proto";
+
+service GameService {
+  rpc GetGameList (GetGameListRequest) returns (GetGameListResponse);
+  rpc GetGameById (GetGameByIdRequest) returns (GetGameByIdResponse);
+}
+
+message GetGameListRequest {}
+message GetGameListResponse {
+  repeated models.Game games = 1;
+}
+
+message GetGameByIdRequest {
+  int32 game_id = 1;
+}
+
+message GetGameByIdResponse {
+  models.Game game = 1;
+}
