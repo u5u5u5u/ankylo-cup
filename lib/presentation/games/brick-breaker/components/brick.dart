@@ -10,9 +10,14 @@ import 'bat.dart';
 class Brick extends RectangleComponent
     with CollisionCallbacks, HasGameReference<BrickBreaker> {
   int health;
+  int maxhealth;
   late TextComponent healthText;
 
-  Brick({required super.position, required Color color, required this.health})
+  Brick(
+      {required super.position,
+      required Color color,
+      required this.health,
+      required this.maxhealth})
       : super(
           size: Vector2(brickWidth, brickHeight),
           anchor: Anchor.center,
@@ -40,8 +45,9 @@ class Brick extends RectangleComponent
       Set<Vector2> intersectionPoints, PositionComponent other) {
     super.onCollisionStart(intersectionPoints, other);
     health -= 10;
+    healthText.text = health.toString();
     if (health <= 0) {
-      game.score.value += 5;
+      game.score.value += maxhealth ~/ 3;
       removeFromParent();
     }
     game.score.value++;
@@ -57,7 +63,8 @@ class Brick extends RectangleComponent
 class DoubleScoreBrick extends Brick {
   DoubleScoreBrick({required super.position, required super.color})
       : super(
-          health: brickHealth, // 基本の体力を使用
+          health: brickHealth,
+          maxhealth: brickHealth,
         );
 
   @override
@@ -67,7 +74,7 @@ class DoubleScoreBrick extends Brick {
     health -= 10;
     healthText.text = health.toString();
     if (health <= 0) {
-      game.score.value += 10; // スコアを10増加
+      game.score.value += maxhealth ~/ 1.5;
       removeFromParent();
     }
     game.score.value += 2;
@@ -78,5 +85,6 @@ class TripleHealthBrick extends Brick {
   TripleHealthBrick({required super.position, required super.color})
       : super(
           health: brickHealth * 3, // 体力を3倍に設定
+          maxhealth: brickHealth * 3,
         );
 }
