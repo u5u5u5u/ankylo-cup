@@ -23,8 +23,9 @@ class AccountScreen extends StatelessWidget {
                     radius: 50,
                   ),
                   SizedBox(height: 20),
-                  Text('Name: ${user!.displayName ?? 'N/A'}'),
-                  Text('Email: ${user!.email ?? 'N/A'}'),
+                  Text('Name: ${user!.displayName ?? ''}'),
+                  Text('Email: ${user!.email ?? ''}'),
+                  Text('UID: ${user!.uid}'),
                 ],
               )
             : Text('No user information available'),

@@ -8,50 +8,57 @@ class RoomScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('ルーム作成および検索'),
+        backgroundColor: const Color.fromARGB(200, 127, 65, 192),
       ),
       body: Center(
-        child: Column(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            ElevatedButton(
-              onPressed: () {
+            GestureDetector(
+              onTap: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(
-                      builder: (context) => RoomCreateScreen()),
+                  MaterialPageRoute(builder: (context) => RoomCreateScreen()),
                 );
               },
-              child: Text('ルーム作成'),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.width * 0.45,
+                width: MediaQuery.of(context).size.width * 0.45,
+                child: Card(
+                  color: const Color.fromARGB(200, 203, 189, 247),
+                  child: Center(
+                    child: Text(
+                      'ルーム作成',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                ),
+              ),
             ),
-            ElevatedButton(
-              onPressed: () {
+            SizedBox(width: 16),
+            GestureDetector(
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(builder: (context) => RoomSearchScreen()),
                 );
               },
-              child: Text('ルーム検索'),
+              child: SizedBox(
+                height: MediaQuery.of(context).size.width * 0.45,
+                width: MediaQuery.of(context).size.width * 0.45,
+                child: Card(
+                  color: const Color.fromARGB(200, 203, 189, 247),
+                  child: Center(
+                    child: Text(
+                      'ルーム検索',
+                      style: TextStyle(fontSize: 24),
+                    ),
+                  ),
+                ),
+              ),
             ),
           ],
         ),
-      ),
-    );
-  }
-}
-
-class RoomDetailScreen extends StatelessWidget {
-  final String roomId;
-
-  RoomDetailScreen({required this.roomId});
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('ルーム詳細: $roomId'),
-      ),
-      body: Center(
-        child: Text('ルームID: $roomId'),
       ),
     );
   }
