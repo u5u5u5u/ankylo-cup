@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:ankylo_cup/presentation/select_game/select_game_screen.dart';
 
-class HomeScreen extends StatelessWidget {
+class SelectModeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,12 +15,11 @@ class HomeScreen extends StatelessWidget {
               onPressed: () {
                 Navigator.push(
                   context,
-                  MaterialPageRoute(builder: (context) => SelectGameScreen()),
+                  MaterialPageRoute(builder: (context) => SelectScreen()),
                 );
               },
               child: Text('ソロプレイ'),
             ),
-            SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
                 Navigator.push(

@@ -18,7 +18,7 @@ class Auth extends StatelessWidget {
             ),
           );
         } else if (snapshot.hasData) {
-          return HomeScreen(user: snapshot.data);
+          return HomeScreen();
         } else {
           return SigninScreen();
         }

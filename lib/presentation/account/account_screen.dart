@@ -19,13 +19,12 @@ class AccountScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   CircleAvatar(
-                    backgroundImage: NetworkImage(user!.photoURL!),
+                    backgroundImage: NetworkImage(user!.photoURL ?? ''),
                     radius: 50,
                   ),
                   SizedBox(height: 20),
-                  Text('Name: ${user!.displayName}'),
-                  Text('Email: ${user!.email}'),
-                  Text('UID: ${user!.uid}'),
+                  Text('Name: ${user!.displayName ?? 'N/A'}'),
+                  Text('Email: ${user!.email ?? 'N/A'}'),
                 ],
               )
             : Text('No user information available'),
