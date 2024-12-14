@@ -2,6 +2,8 @@ import 'dart:math';
 import 'package:ankylo_cup/presentation/games/chinchiro/chinchiro_screen_state_notifier.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:ankylo_cup/services/score_services.dart';
+import 'package:ankylo_cup/presentation/page/select_mode/select_mode_screen.dart';
 
 class ChinchiroGameScreen extends ConsumerStatefulWidget {
   const ChinchiroGameScreen({Key? key}) : super(key: key);
@@ -27,6 +29,19 @@ class ChinchiroGameScreenState extends ConsumerState<ChinchiroGameScreen>
   void dispose() {
     rotationController.dispose();
     super.dispose();
+  }
+
+  Future<void> _exitGame(int score) async {
+    try {
+      await ScoreService().recordScore(score);
+    } catch (e) {
+      print('Failed to record score: $e');
+    } finally {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SelectModeScreen()),
+      );
+    }
   }
 
   @override
@@ -106,15 +121,21 @@ class ChinchiroGameScreenState extends ConsumerState<ChinchiroGameScreen>
             Text('Player 2 Score: ${gameState.playerScores[1]}',
                 style: const TextStyle(fontSize: 18)),
             if (gameState.gameMessage.contains("Wins") ||
-                gameState.gameMessage.contains("Draw"))
+                gameState.gameMessage.contains("Draw")) ...[
               ElevatedButton(
                 onPressed: gameNotifier.resetGame,
                 child: const Text('Play Again'),
               ),
+              ElevatedButton(
+                onPressed: () => _exitGame(
+                    gameState.playerScores[gameState.currentPlayer - 1]),
+                child: const Text('exit'),
+              ),
+            ],
             if (!gameState.isReady)
               ElevatedButton(
                 onPressed: gameNotifier.startTurn,
-                child: const Text('Ready'),
+                child: const Text('again'),
               ),
           ],
         ),
