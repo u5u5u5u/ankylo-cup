@@ -5,7 +5,7 @@ class GrpcChannel {
   static ClientChannel createChannel() {
     return ClientChannel(
       '10.0.2.2', // バックエンドサーバーのアドレス
-      port: 8080, // バックエンドサーバーのポート
+      port: 50051, // バックエンドサーバーのポート
       options: const ChannelOptions(
         credentials: ChannelCredentials.insecure(),
       ),
