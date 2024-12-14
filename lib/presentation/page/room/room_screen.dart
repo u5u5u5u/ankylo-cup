@@ -7,7 +7,7 @@ class RoomScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ルーム', style: TextStyle(color: Colors.white)),
+        title: Text('Room', style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -35,9 +35,9 @@ class RoomScreen extends StatelessWidget {
                 child: Card(
                   color: Theme.of(context).cardColor,
                   child: Center(
-                    child: Text('作成',
+                    child: Text('create',
                         style: TextStyle(
-                            fontSize: 50,
+                            fontSize: 25,
                             color: Theme.of(context).primaryColor,
                             fontWeight: FontWeight.bold)),
                   ),
@@ -59,9 +59,9 @@ class RoomScreen extends StatelessWidget {
                   color: Theme.of(context).cardColor,
                   child: Center(
                     child: Text(
-                      '検索',
+                      'search',
                       style: TextStyle(
-                          fontSize: 50,
+                          fontSize: 25,
                           color: Theme.of(context).primaryColor,
                           fontWeight: FontWeight.bold),
                     ),

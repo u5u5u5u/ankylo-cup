@@ -11,7 +11,7 @@ class RoomCreateScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ゲーム選択', style: TextStyle(color: Colors.white)),
+        title: Text('Games', style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -28,10 +28,10 @@ class RoomCreateScreen extends StatelessWidget {
         mainAxisSpacing: 10.0,
         padding: EdgeInsets.all(16.0),
         children: <Widget>[
-          _buildGameTile(context, 'ブロック崩し', BrickBreakerGameScreen(), false),
-          _buildGameTile(context, 'チンチロ', ChinchiroGameScreen(), true),
-          _buildGameTile(context, 'ホッケー', HockeyGameScreen(), true),
-          _buildGameTile(context, 'ブラックジャック', Container(), false),
+          _buildGameTile(context, 'Brick\nBreaker', BrickBreakerGameScreen(), false),
+          _buildGameTile(context, 'Chinchiro', ChinchiroGameScreen(), true),
+          _buildGameTile(context, 'Hockey', HockeyGameScreen(), true),
+          _buildGameTile(context, 'BlackJack', Container(), false),
         ],
       ),
     );

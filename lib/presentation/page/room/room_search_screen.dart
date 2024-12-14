@@ -20,7 +20,7 @@ class _RoomSearchScreenState extends State<RoomSearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('ルーム検索', style: TextStyle(color: Colors.white)),
+        title: Text('Search', style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         leading: IconButton(
@@ -38,7 +38,7 @@ class _RoomSearchScreenState extends State<RoomSearchScreen> {
             TextField(
               controller: _controller,
               decoration: InputDecoration(
-                labelText: 'ルームIDを入力してください',
+                labelText: 'Please enter Room ID',
                 labelStyle: TextStyle(color: Colors.black),
               ),
             ),
@@ -48,12 +48,19 @@ class _RoomSearchScreenState extends State<RoomSearchScreen> {
               height: 50.0,
               child: ElevatedButton(
                 onPressed: _searchRoom,
-                child: Text(
-                  '検索',
-                  style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Icon(Icons.search, color: Theme.of(context).primaryColor),
+                    SizedBox(width: 8.0),
+                    Text(
+                      'search',
+                      style: TextStyle(
+                          color: Theme.of(context).primaryColor,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ],
                 ),
               ),
             ),
