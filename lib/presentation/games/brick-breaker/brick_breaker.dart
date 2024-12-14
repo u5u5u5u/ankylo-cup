@@ -5,9 +5,9 @@ import 'package:flame/components.dart';
 import 'package:flame/events.dart';
 import 'package:flame/game.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:sensors_plus/sensors_plus.dart'; // Add this import
 
-import 'components/components.dart';
+import '../components/components.dart';
 import 'config.dart';
 
 enum PlayState { welcome, playing, gameOver, won }
@@ -28,7 +28,9 @@ class BrickBreaker extends FlameGame
   double get height => size.y;
 
   late PlayState _playState;
+  late StreamSubscription<AccelerometerEvent> _accelerometerSubscription;
   PlayState get playState => _playState;
+
   set playState(PlayState playState) {
     _playState = playState;
     switch (playState) {
@@ -52,6 +54,20 @@ class BrickBreaker extends FlameGame
     world.add(PlayArea());
 
     playState = PlayState.welcome;
+    _accelerometerSubscription = accelerometerEventStream(
+      samplingPeriod: SensorInterval.gameInterval,
+    ).listen((event) {
+      if (playState == PlayState.playing) {
+        final bats = world.children.query<Bat>();
+        if (bats.isNotEmpty) {
+          final bat = bats.first;
+          final tilt = event.x;
+          final newX = (bat.position.x - tilt * 5)
+              .clamp(batWidth / 2, width - batWidth / 2);
+          bat.position = Vector2(newX.toDouble(), bat.position.y);
+        }
+      }
+    });
   }
 
   void startGame() {
@@ -69,17 +85,17 @@ class BrickBreaker extends FlameGame
         difficultyModifier: difficultyModifier,
         radius: ballRadius,
         position: size / 2,
-        velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.3)
+        velocity: Vector2((rand.nextDouble() - 0.5) * width, height * 0.2)
             .normalized()
-          ..scale(height / 4)));
+          ..scale(height / 3)));
 
     world.add(Bat(
         size: Vector2(batWidth, batHeight),
         cornerRadius: const Radius.circular(ballRadius / 2),
         position: Vector2(width / 2, height * 0.95)));
 
-    for (var i = 5; i >= 1; i--) {
-      for (var j = 0; j < brickColors.length; j++) {
+    for (var i = brickRows; i >= 1; i--) {
+      for (var j = 0; j < brickColumns; j++) {
         world.add(Brick(
           position: Vector2(
             (j + 0.5) * brickWidth + (j + 1) * brickGutter,
@@ -87,6 +103,7 @@ class BrickBreaker extends FlameGame
           ),
           color: brickColors[9],
           health: brickHealth,
+          maxhealth: brickHealth,
         ));
       }
       brickHealth = (brickHealth * 1.3).toInt();
@@ -100,19 +117,10 @@ class BrickBreaker extends FlameGame
   }
 
   @override
-  KeyEventResult onKeyEvent(
-      KeyEvent event, Set<LogicalKeyboardKey> keysPressed) {
-    super.onKeyEvent(event, keysPressed);
-    switch (event.logicalKey) {
-      case LogicalKeyboardKey.arrowLeft:
-        world.children.query<Bat>().first.moveBy(-batStep);
-      case LogicalKeyboardKey.arrowRight:
-        world.children.query<Bat>().first.moveBy(batStep);
-      case LogicalKeyboardKey.space:
-      case LogicalKeyboardKey.enter:
-        startGame();
-    }
-    return KeyEventResult.handled;
+  void onRemove() {
+    // Cancel accelerometer subscription
+    _accelerometerSubscription.cancel();
+    super.onRemove();
   }
 
   @override

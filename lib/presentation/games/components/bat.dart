@@ -4,7 +4,7 @@ import 'package:flame/effects.dart';
 import 'package:flame/events.dart';
 import 'package:flutter/material.dart';
 
-import '../brick_breaker.dart';
+import '../brick-breaker/brick_breaker.dart';
 
 class Bat extends PositionComponent
     with DragCallbacks, HasGameReference<BrickBreaker> {
@@ -32,18 +32,5 @@ class Bat extends PositionComponent
           cornerRadius,
         ),
         _paint);
-  }
-
-  @override
-  void onDragUpdate(DragUpdateEvent event) {
-    super.onDragUpdate(event);
-    position.x = (position.x + event.localDelta.x).clamp(0, game.width);
-  }
-
-  void moveBy(double dx) {
-    add(MoveToEffect(
-      Vector2((position.x + dx).clamp(0, game.width), position.y),
-      EffectController(duration: 0.1),
-    ));
   }
 }
