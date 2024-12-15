@@ -54,19 +54,6 @@ class TitleScreen extends StatelessWidget {
                         end: 5,
                         curve: Curves.easeInOut,
                       ),
-                  // ランキングボタン
-                  const SizedBox(height: 50),
-                  ElevatedButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => RankingScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text('Top 10'),
-                  ),
                 ],
               ),
             ),
