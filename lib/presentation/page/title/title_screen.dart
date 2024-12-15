@@ -27,7 +27,7 @@ class TitleScreen extends StatelessWidget {
                   // アプリ名のフェードインとスライドアニメーション
                   Text(
                     'Shikaku Games',
-                    style: TextStyle(fontSize: 30, color: Colors.white),
+                    style: TextStyle(fontSize: 28, color: Colors.white),
                   )
                       .animate()
                       .fadeIn(duration: 2.seconds)
@@ -39,7 +39,7 @@ class TitleScreen extends StatelessWidget {
                   const Text(
                     'Tap to Start',
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       color: Colors.white70,
                       letterSpacing: 2,
                     ),
