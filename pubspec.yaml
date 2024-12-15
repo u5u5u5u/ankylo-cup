@@ -32,4 +32,7 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   assets:
-    - images/
+    - images/brick_breaker.png
+    - images/chinchiro.png
+    - images/hockey.png
+    - images/blackjack.png
