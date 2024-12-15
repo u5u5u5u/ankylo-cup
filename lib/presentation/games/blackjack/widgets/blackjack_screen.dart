@@ -13,6 +13,7 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
   late Deck _deck;
   late Hand _playerHand;
   late Hand _dealerHand;
+  bool _isStand = false;
 
   @override
   void initState() {
@@ -29,6 +30,7 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
     _playerHand.addCard(_deck.drawCard());
     _dealerHand.addCard(_deck.drawCard());
     _dealerHand.addCard(_deck.drawCard());
+    _isStand = false;
   }
 
   void _hit() {
@@ -40,19 +42,25 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
     });
   }
 
-  void _stand() {
+  Future<void> _stand() async {
+    await Future.delayed(Duration(milliseconds: 500));
     setState(() {
-      while (_dealerHand.value < 17) {
-        _dealerHand.addCard(_deck.drawCard());
-      }
-      if (_dealerHand.isBusted || _playerHand.value > _dealerHand.value) {
-        _showResult('You Win!');
-      } else if (_playerHand.value < _dealerHand.value) {
-        _showResult('Dealer Wins!');
-      } else {
-        _showResult('It\'s a Tie!');
-      }
+      _isStand = true;
     });
+    while (_dealerHand.value < 17) {
+      await Future.delayed(Duration(milliseconds: 750));
+      setState(() {
+        _dealerHand.addCard(_deck.drawCard());
+      });
+    }
+    await Future.delayed(Duration(milliseconds: 750));
+    if (_dealerHand.isBusted || _playerHand.value > _dealerHand.value) {
+      _showResult('You Win!');
+    } else if (_playerHand.value < _dealerHand.value) {
+      _showResult('Dealer Wins!');
+    } else {
+      _showResult('It\'s a Tie!');
+    }
   }
 
   Future<void> _exitGame() async {
@@ -72,6 +80,7 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
   void _showResult(String result) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(result,
@@ -119,7 +128,8 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('Dealer\'s Hand: ${_dealerHand.value}'),
+          Text(
+              'Dealer\'s Hand: ${_isStand ? _dealerHand.value : _dealerHand.cards.first.value}'),
           _dealerHand.isBusted ? Text('Busted!') : Container(),
           _dealerHand.isBusted
               ? Container()
