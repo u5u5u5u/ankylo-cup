@@ -136,7 +136,7 @@ class ChinchiroGameScreenState extends ConsumerState<ChinchiroGameScreen>
               ElevatedButton(
                 onPressed: () => _exitGame(
                     gameState.playerScores[gameState.currentPlayer - 1]),
-                child: const Text('exit', style: TextStyle(fontSize: 32)),
+                child: const Text('exit', style: TextStyle(fontSize: 20)),
                 style: ElevatedButton.styleFrom(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 38, vertical: 24),
