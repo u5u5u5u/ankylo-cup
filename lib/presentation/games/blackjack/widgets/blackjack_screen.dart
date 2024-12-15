@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:ankylo_cup/presentation/games/blackjack/components/deck.dart';
 import 'package:ankylo_cup/presentation/games/blackjack/components/hand.dart';
+import 'package:ankylo_cup/services/score_services.dart';
+import 'package:ankylo_cup/presentation/page/select_mode/select_mode_screen.dart';
 
 class BlackjackScreen extends StatefulWidget {
   @override
@@ -61,16 +63,32 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
     }
   }
 
+  Future<void> _exitGame() async {
+    try {
+      print('Score: ${_playerHand.value}');
+      await ScoreService().recordScore(_playerHand.value);
+    } catch (e) {
+      print('Failed to record score: $e');
+    } finally {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => SelectModeScreen()),
+      );
+    }
+  }
+
   void _showResult(String result) {
     showDialog(
       context: context,
       barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(result),
+          title: Text(result,
+              style:
+                  TextStyle(fontSize: 20, color: Theme.of(context).cardColor)),
           actions: <Widget>[
             TextButton(
-              child: Text('Play Again'),
+              child: Text('again'),
               onPressed: () {
                 Navigator.of(context).pop();
                 setState(() {
@@ -82,11 +100,8 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
               },
             ),
             TextButton(
-              child: Text('Back to Game Selection'),
-              onPressed: () {
-                Navigator.of(context).pop();
-                Navigator.of(context).pop(); // ゲーム選択画面に戻る
-              },
+              child: Text('exit'),
+              onPressed: _exitGame,
             ),
           ],
         );
@@ -97,16 +112,24 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text('Blackjack'),
+        title: Text('Blackjack', style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).primaryColor,
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-              'Dealer\'s Hand: ${_isStand ? _dealerHand.value : _dealerHand.cards.first.value}'),
+              'Dealer\'s Hand: ${_isStand ? _dealerHand.value : _dealerHand.cards.first.value}${_isStand ? '' : ' + ?'}'),
           _dealerHand.isBusted ? Text('Busted!') : Container(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -116,7 +139,7 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
               if (!_isStand && idx == 1) {
                 return Container(
                   margin: EdgeInsets.all(8.0),
-                  padding: EdgeInsets.fromLTRB(21, 12, 21, 12),
+                  padding: EdgeInsets.fromLTRB(19, 28, 19, 28),
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black),
                     borderRadius: BorderRadius.circular(8.0),
@@ -131,7 +154,7 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
                   ),
                 );
               } else {
-                return card.buildCard();
+                return card.buildCard(context);
               }
             }).toList(),
           ),
@@ -140,8 +163,9 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
           _playerHand.isBusted ? Text('Busted!') : Container(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children:
-                _playerHand.cards.map((card) => card.buildCard()).toList(),
+            children: _playerHand.cards
+                .map((card) => card.buildCard(context))
+                .toList(),
           ),
           SizedBox(height: 20),
           Row(

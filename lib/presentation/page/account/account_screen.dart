@@ -10,8 +10,16 @@ class AccountScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Account Information'),
+        title: Text('Account', style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).primaryColor,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () {
+            Navigator.of(context).pop();
+          },
+        ),
       ),
       body: Center(
         child: user != null
@@ -23,9 +31,11 @@ class AccountScreen extends StatelessWidget {
                     radius: 50,
                   ),
                   SizedBox(height: 20),
-                  Text('Name: ${user!.displayName ?? ''}'),
-                  Text('Email: ${user!.email ?? ''}'),
-                  Text('UID: ${user!.uid}'),
+                  Text(user!.displayName ?? '', style: TextStyle(fontSize: 24)),
+                  SizedBox(height: 10),
+                  Text(user!.email ?? ''),
+                  SizedBox(height: 10),
+                  Text(user!.uid, style: TextStyle(fontSize: 10)),
                 ],
               )
             : Text('No user information available'),

@@ -72,7 +72,7 @@ class GameNotifier extends StateNotifier<GameState> {
       state = state.copyWith(
         currentPlayer: 2,
         playerScores: updatedScores,
-        gameMessage: "Player 2's Turn: Press Ready to Start!",
+        gameMessage: "Player 2's Turn",
         isReady: false,
         isRolling: false,
       );
@@ -121,7 +121,7 @@ class GameNotifier extends StateNotifier<GameState> {
   void startTurn() {
     state = state.copyWith(
       isReady: true,
-      gameMessage: "プレイヤー${state.currentPlayer}の番です",
+      gameMessage: "Player${state.currentPlayer}'s Turn",
       currentDiceValues: [1, 1, 1], // Reset dice values to initial state
     );
   }

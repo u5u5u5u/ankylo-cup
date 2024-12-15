@@ -26,12 +26,13 @@ class ScoreCard extends StatelessWidget {
                       fontSize:
                           Theme.of(context).textTheme.titleLarge!.fontSize! *
                               0.8,
+                      color: Color.fromARGB(255, 230, 178, 236),
                     ),
               ),
             );
           },
         ),
-        const Text('/'),
+        const Text('/', style: TextStyle(color: Color.fromARGB(255, 230, 178, 236))),
         ValueListenableBuilder<int>(
           valueListenable: lifeRemain,
           builder: (context, lifeRemain, child) {
@@ -43,6 +44,7 @@ class ScoreCard extends StatelessWidget {
                       fontSize:
                           Theme.of(context).textTheme.titleLarge!.fontSize! *
                               0.8,
+                      color: Color.fromARGB(255, 230, 178, 236),
                     ),
               ),
             );

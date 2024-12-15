@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:ankylo_cup/presentation/auth/auth.dart';
+import 'package:ankylo_cup/presentation/page/ranking/ranking_screen.dart';
 
 class TitleScreen extends StatelessWidget {
   const TitleScreen({super.key});
@@ -24,21 +25,9 @@ class TitleScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   // アプリ名のフェードインとスライドアニメーション
-                  const Text(
-                    'Mini Game Collection',
-                    style: TextStyle(
-                      fontSize: 36,
-                      fontWeight: FontWeight.w900,
-                      color: Colors.white,
-                      fontFamily: 'Montserrat',
-                      shadows: [
-                        Shadow(
-                          blurRadius: 10,
-                          color: Colors.black26,
-                          offset: Offset(0, 4),
-                        ),
-                      ],
-                    ),
+                  Text(
+                    'Shikaku Games',
+                    style: TextStyle(fontSize: 28, color: Colors.white),
                   )
                       .animate()
                       .fadeIn(duration: 2.seconds)
@@ -50,7 +39,7 @@ class TitleScreen extends StatelessWidget {
                   const Text(
                     'Tap to Start',
                     style: TextStyle(
-                      fontSize: 24,
+                      fontSize: 14,
                       color: Colors.white70,
                       letterSpacing: 2,
                     ),
@@ -61,7 +50,7 @@ class TitleScreen extends StatelessWidget {
                       )
                       .moveY(
                         duration: 1.seconds,
-                        begin: -5,
+                        begin: 0,
                         end: 5,
                         curve: Curves.easeInOut,
                       ),

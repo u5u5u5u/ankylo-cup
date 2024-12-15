@@ -6,10 +6,14 @@ class OverlayScreen extends StatelessWidget {
     super.key,
     required this.title,
     required this.subtitle,
+    this.showExitButton = false, // 終了ボタンを表示するかどうかのフラグ
+    this.onExitPressed,
   });
 
   final String title;
   final String subtitle;
+  final bool showExitButton;
+  final VoidCallback? onExitPressed;
 
   @override
   Widget build(BuildContext context) {
@@ -31,6 +35,17 @@ class OverlayScreen extends StatelessWidget {
               .fadeIn(duration: 1.seconds)
               .then()
               .fadeOut(duration: 1.seconds),
+          if (showExitButton) ...[
+            const SizedBox(height: 16),
+            ElevatedButton(
+              onPressed: onExitPressed,
+              child: const Text('exit', style: TextStyle(fontSize: 32)),
+              style: ElevatedButton.styleFrom(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 38, vertical: 24),
+              ),
+            ),
+          ],
         ],
       ),
     );

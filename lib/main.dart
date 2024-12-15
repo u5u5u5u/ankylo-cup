@@ -27,13 +27,7 @@ class MiniGamesApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Mini Games App',
-      theme: ThemeData(
-        useMaterial3: true,
-        textTheme: GoogleFonts.pressStart2pTextTheme().apply(
-          bodyColor: const Color(0xff184e77),
-          displayColor: const Color(0xff184e77),
-        ),
-      ),
+      theme: AppTheme.theme,
       home: const TitleScreen(),
     );
   }
