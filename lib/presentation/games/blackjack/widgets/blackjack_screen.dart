@@ -11,6 +11,7 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
   late Deck _deck;
   late Hand _playerHand;
   late Hand _dealerHand;
+  bool _isStand = false;
 
   @override
   void initState() {
@@ -27,6 +28,7 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
     _playerHand.addCard(_deck.drawCard());
     _dealerHand.addCard(_deck.drawCard());
     _dealerHand.addCard(_deck.drawCard());
+    _isStand = false;
   }
 
   void _hit() {
@@ -38,24 +40,31 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
     });
   }
 
-  void _stand() {
+  Future<void> _stand() async {
+    await Future.delayed(Duration(milliseconds: 500));
     setState(() {
-      while (_dealerHand.value < 17) {
-        _dealerHand.addCard(_deck.drawCard());
-      }
-      if (_dealerHand.isBusted || _playerHand.value > _dealerHand.value) {
-        _showResult('You Win!');
-      } else if (_playerHand.value < _dealerHand.value) {
-        _showResult('Dealer Wins!');
-      } else {
-        _showResult('It\'s a Tie!');
-      }
+      _isStand = true;
     });
+    while (_dealerHand.value < 17) {
+      await Future.delayed(Duration(milliseconds: 750));
+      setState(() {
+        _dealerHand.addCard(_deck.drawCard());
+      });
+    }
+    await Future.delayed(Duration(milliseconds: 750));
+    if (_dealerHand.isBusted || _playerHand.value > _dealerHand.value) {
+      _showResult('You Win!');
+    } else if (_playerHand.value < _dealerHand.value) {
+      _showResult('Dealer Wins!');
+    } else {
+      _showResult('It\'s a Tie!');
+    }
   }
 
   void _showResult(String result) {
     showDialog(
       context: context,
+      barrierDismissible: false,
       builder: (BuildContext context) {
         return AlertDialog(
           title: Text(result),
@@ -72,6 +81,13 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
                 });
               },
             ),
+            TextButton(
+              child: Text('Back to Game Selection'),
+              onPressed: () {
+                Navigator.of(context).pop();
+                Navigator.of(context).pop(); // ゲーム選択画面に戻る
+              },
+            ),
           ],
         );
       },
@@ -83,18 +99,42 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Blackjack'),
+        backgroundColor: Theme.of(context).primaryColor,
+        automaticallyImplyLeading: true,
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
-          Text('Dealer\'s Hand: ${_dealerHand.value}'),
+          Text(
+              'Dealer\'s Hand: ${_isStand ? _dealerHand.value : _dealerHand.cards.first.value}'),
           _dealerHand.isBusted ? Text('Busted!') : Container(),
-          _dealerHand.isBusted
-              ? Container()
-              : _dealerHand.cards.first.buildCard(),
-          _dealerHand.isBusted
-              ? Container()
-              : _dealerHand.cards.last.buildCard(),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: _dealerHand.cards.asMap().entries.map((entry) {
+              int idx = entry.key;
+              var card = entry.value;
+              if (!_isStand && idx == 1) {
+                return Container(
+                  margin: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.fromLTRB(21, 12, 21, 12),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(8.0),
+                    color: Colors.grey,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('?', style: TextStyle(fontSize: 24)),
+                      Text('?', style: TextStyle(fontSize: 24)),
+                    ],
+                  ),
+                );
+              } else {
+                return card.buildCard();
+              }
+            }).toList(),
+          ),
           SizedBox(height: 20),
           Text('Your Hand: ${_playerHand.value}'),
           _playerHand.isBusted ? Text('Busted!') : Container(),
