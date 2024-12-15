@@ -129,14 +129,35 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: <Widget>[
           Text(
-              'Dealer\'s Hand: ${_isStand ? _dealerHand.value : _dealerHand.cards.first.value}'),
+              'Dealer\'s Hand: ${_isStand ? _dealerHand.value : _dealerHand.cards.first.value}${_isStand ? '' : ' + ?'}'),
           _dealerHand.isBusted ? Text('Busted!') : Container(),
-          _dealerHand.isBusted
-              ? Container()
-              : _dealerHand.cards.first.buildCard(context),
-          _dealerHand.isBusted
-              ? Container()
-              : _dealerHand.cards.last.buildCard(context),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: _dealerHand.cards.asMap().entries.map((entry) {
+              int idx = entry.key;
+              var card = entry.value;
+              if (!_isStand && idx == 1) {
+                return Container(
+                  margin: EdgeInsets.all(8.0),
+                  padding: EdgeInsets.fromLTRB(19, 28, 19, 28),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black),
+                    borderRadius: BorderRadius.circular(8.0),
+                    color: Colors.grey,
+                  ),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: <Widget>[
+                      Text('?', style: TextStyle(fontSize: 24)),
+                      Text('?', style: TextStyle(fontSize: 24)),
+                    ],
+                  ),
+                );
+              } else {
+                return card.buildCard(context);
+              }
+            }).toList(),
+          ),
           SizedBox(height: 20),
           Text('Your Hand: ${_playerHand.value}'),
           _playerHand.isBusted ? Text('Busted!') : Container(),
