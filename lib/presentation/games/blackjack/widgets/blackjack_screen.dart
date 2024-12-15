@@ -74,10 +74,12 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
       context: context,
       builder: (BuildContext context) {
         return AlertDialog(
-          title: Text(result),
+          title: Text(result,
+              style:
+                  TextStyle(fontSize: 20, color: Theme.of(context).cardColor)),
           actions: <Widget>[
             TextButton(
-              child: Text('Play Again'),
+              child: Text('again'),
               onPressed: () {
                 Navigator.of(context).pop();
                 setState(() {
@@ -101,8 +103,18 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: Text('Blackjack'),
+        title: Text('Blackjack', style: TextStyle(color: Colors.white)),
+        backgroundColor: Theme.of(context).primaryColor,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
@@ -111,17 +123,18 @@ class _BlackjackScreenState extends State<BlackjackScreen> {
           _dealerHand.isBusted ? Text('Busted!') : Container(),
           _dealerHand.isBusted
               ? Container()
-              : _dealerHand.cards.first.buildCard(),
+              : _dealerHand.cards.first.buildCard(context),
           _dealerHand.isBusted
               ? Container()
-              : _dealerHand.cards.last.buildCard(),
+              : _dealerHand.cards.last.buildCard(context),
           SizedBox(height: 20),
           Text('Your Hand: ${_playerHand.value}'),
           _playerHand.isBusted ? Text('Busted!') : Container(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
-            children:
-                _playerHand.cards.map((card) => card.buildCard()).toList(),
+            children: _playerHand.cards
+                .map((card) => card.buildCard(context))
+                .toList(),
           ),
           SizedBox(height: 20),
           Row(

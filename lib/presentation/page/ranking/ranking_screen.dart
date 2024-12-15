@@ -77,7 +77,7 @@ class _RankingScreenState extends State<RankingScreen> {
                             TextStyle(color: Theme.of(context).primaryColor))),
                 DropdownMenuItem(
                     value: 4,
-                    child: Text('Black Jack',
+                    child: Text('Blackjack',
                         style:
                             TextStyle(color: Theme.of(context).primaryColor))),
               ],

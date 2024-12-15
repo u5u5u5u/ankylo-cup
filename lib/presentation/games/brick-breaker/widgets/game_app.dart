@@ -63,6 +63,18 @@ class _BrickBreakerGameScreenState extends State<BrickBreakerGameScreen> {
         textTheme: AppTheme.theme.textTheme,
       ),
       home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Brick Breaker', style: TextStyle(color: Colors.white)),
+          backgroundColor: Theme.of(context).primaryColor,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back),
+            color: Colors.white,
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+        ),
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(

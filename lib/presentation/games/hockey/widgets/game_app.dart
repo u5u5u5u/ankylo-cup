@@ -50,14 +50,23 @@ class _HockeyGameScreenState extends State<HockeyGameScreen> {
         ),
       ),
       home: Scaffold(
+        appBar: AppBar(
+          title: const Text('Hockey', style: TextStyle(color: Colors.white)),
+          backgroundColor: Theme.of(context).primaryColor,
+          automaticallyImplyLeading: false,
+          leading: IconButton(
+              icon: const Icon(Icons.arrow_back),
+              color: Colors.white,
+              onPressed: () => Navigator.of(context).pop()),
+        ),
         body: Container(
           decoration: const BoxDecoration(
             gradient: LinearGradient(
               begin: Alignment.topCenter,
               end: Alignment.bottomCenter,
               colors: [
-                Color(0xffa9d6e5),
-                Color(0xfff2e8cf),
+                Color.fromARGB(255, 108, 51, 170),
+                Color.fromARGB(255, 10, 57, 167),
               ],
             ),
           ),

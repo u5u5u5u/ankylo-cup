@@ -12,7 +12,7 @@ class OverlayScreen extends StatelessWidget {
 
   final String title;
   final String subtitle;
-  final bool showExitButton; // 終了ボタンを表示するかどうかのフラグ
+  final bool showExitButton;
   final VoidCallback? onExitPressed;
 
   @override

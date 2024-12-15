@@ -59,9 +59,14 @@ class ChinchiroGameScreenState extends ConsumerState<ChinchiroGameScreen>
     return Scaffold(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       appBar: AppBar(
-        title: const Text('チンチロ'),
+        title: const Text('Chinchiro', style: TextStyle(color: Colors.white)),
         backgroundColor: Theme.of(context).primaryColor,
-        automaticallyImplyLeading: true,
+        automaticallyImplyLeading: false,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back),
+          color: Colors.white,
+          onPressed: () => Navigator.of(context).pop(),
+        ),
       ),
       body: Center(
         child: Column(
@@ -118,13 +123,15 @@ class ChinchiroGameScreenState extends ConsumerState<ChinchiroGameScreen>
             const SizedBox(height: 20),
             Text('Player 1 Score: ${gameState.playerScores[0]}',
                 style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 10),
             Text('Player 2 Score: ${gameState.playerScores[1]}',
                 style: const TextStyle(fontSize: 18)),
+            const SizedBox(height: 20),
             if (gameState.gameMessage.contains("Wins") ||
                 gameState.gameMessage.contains("Draw")) ...[
               ElevatedButton(
                 onPressed: gameNotifier.resetGame,
-                child: const Text('Play Again'),
+                child: const Text('again'),
               ),
               ElevatedButton(
                 onPressed: () => _exitGame(
@@ -139,10 +146,10 @@ class ChinchiroGameScreenState extends ConsumerState<ChinchiroGameScreen>
             if (!gameState.isReady)
               ElevatedButton(
                 onPressed: gameNotifier.startTurn,
-                child: const Text('again', style: TextStyle(fontSize: 32)),
+                child: const Text('ready', style: TextStyle(fontSize: 24)),
                 style: ElevatedButton.styleFrom(
                   padding:
-                      const EdgeInsets.symmetric(horizontal: 38, vertical: 24),
+                      const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
                 ),
               ),
           ],
