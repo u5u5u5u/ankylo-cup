@@ -42,7 +42,8 @@ class SelectModeScreen extends StatelessWidget {
                   onTap: () {
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => SelectGameScreen()),
+                      MaterialPageRoute(
+                          builder: (context) => SelectGameScreen()),
                     );
                   },
                   child: SizedBox(
@@ -92,8 +93,8 @@ class SelectModeScreen extends StatelessWidget {
               ],
             ),
             SizedBox(height: 16),
-            ElevatedButton(
-              onPressed: () {
+            GestureDetector(
+              onTap: () {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
@@ -101,7 +102,21 @@ class SelectModeScreen extends StatelessWidget {
                   ),
                 );
               },
-              child: const Text('Top 10'),
+              child: Container(
+                padding: EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+                decoration: BoxDecoration(
+                  color: Theme.of(context).primaryColor,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: const Text(
+                  'Top 10',
+                  style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 24,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ),
             ),
           ],
         ),

@@ -74,7 +74,7 @@ class ChinchiroGameScreenState extends ConsumerState<ChinchiroGameScreen>
           children: <Widget>[
             Text(
               gameState.gameMessage,
-              style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 20),
@@ -122,10 +122,10 @@ class ChinchiroGameScreenState extends ConsumerState<ChinchiroGameScreen>
             ),
             const SizedBox(height: 20),
             Text('Player 1 Score: ${gameState.playerScores[0]}',
-                style: const TextStyle(fontSize: 18)),
+                style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 10),
             Text('Player 2 Score: ${gameState.playerScores[1]}',
-                style: const TextStyle(fontSize: 18)),
+                style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 20),
             if (gameState.gameMessage.contains("Wins") ||
                 gameState.gameMessage.contains("Draw")) ...[
@@ -146,7 +146,7 @@ class ChinchiroGameScreenState extends ConsumerState<ChinchiroGameScreen>
             if (!gameState.isReady)
               ElevatedButton(
                 onPressed: gameNotifier.startTurn,
-                child: const Text('ready', style: TextStyle(fontSize: 24)),
+                child: const Text('ready', style: TextStyle(fontSize: 20)),
                 style: ElevatedButton.styleFrom(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
@@ -192,7 +192,7 @@ class Dice extends StatelessWidget {
                 child: Text(
                   _getDiceFace(value),
                   style: const TextStyle(
-                      fontSize: 128,
+                      fontSize: 80,
                       fontWeight: FontWeight.bold,
                       color: Colors.black),
                 ),

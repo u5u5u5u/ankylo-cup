@@ -29,18 +29,22 @@ class SelectGameScreen extends StatelessWidget {
         mainAxisSpacing: 10.0,
         padding: EdgeInsets.all(16.0),
         children: <Widget>[
+          _buildGameTile(context, 'Brick\nBreaker', BrickBreakerGameScreen(),
+              false, 'images/brick_breaker.png'),
+          _buildGameTile(context, 'Chin\nchiro', ChinchiroGameScreen(), true,
+              'images/chinchiro.png'),
           _buildGameTile(
-              context, 'Brick\nBreaker', BrickBreakerGameScreen(), false),
-          _buildGameTile(context, 'Chinchiro', ChinchiroGameScreen(), true),
-          _buildGameTile(context, 'Hockey', HockeyGameScreen(), true),
-          _buildGameTile(context, 'BlackJack', BlackjackGame(), false),
+              context, 'Hockey', HockeyGameScreen(), true, 'images/hockey.png'),
+          _buildGameTile(context, 'Black\nJack', BlackjackGame(), false,
+              'images/blackjack.png'),
         ],
       ),
     );
   }
 
   Widget _buildGameTile(BuildContext context, String title, Widget game,
-      bool supportsMultiplayer) {
+      bool supportsMultiplayer, String imagePath) {
+    print('imagePath: $imagePath');
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -50,15 +54,33 @@ class SelectGameScreen extends StatelessWidget {
       },
       child: Card(
         color: Theme.of(context).cardColor,
-        child: Center(
-          child: Text(
-            title,
-            style: TextStyle(
-              color: Theme.of(context).primaryColor,
-              fontSize: Theme.of(context).textTheme.bodyLarge?.fontSize,
-              fontWeight: FontWeight.bold,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(15.0),
+        ),
+        child: Stack(
+          children: [
+        Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(15.0),
+            image: DecorationImage(
+          image: AssetImage(imagePath),
+          fit: BoxFit.cover,
             ),
           ),
+        ),
+        Container(
+          alignment: Alignment.center,
+          child: Text(
+            title,
+            textAlign: TextAlign.center,
+            style: TextStyle(
+          color: Colors.black,
+          fontSize: 20,
+          fontWeight: FontWeight.bold,
+            ),
+          ),
+        ),
+          ],
         ),
       ),
     );
