@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:ankylo_cup/presentation/auth/auth.dart';
+import 'package:ankylo_cup/presentation/page/ranking/ranking_screen.dart';
 
 class TitleScreen extends StatelessWidget {
   const TitleScreen({super.key});
@@ -53,6 +54,19 @@ class TitleScreen extends StatelessWidget {
                         end: 5,
                         curve: Curves.easeInOut,
                       ),
+                  // ランキングボタン
+                  const SizedBox(height: 50),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => RankingScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text('Top 10'),
+                  ),
                 ],
               ),
             ),
