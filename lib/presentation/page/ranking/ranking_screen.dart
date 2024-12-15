@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:ankylo_cup/services/score_services.dart';
 import 'package:ankylo_cup/proto/score.pb.dart';
@@ -95,7 +97,7 @@ class _RankingScreenState extends State<RankingScreen> {
                 ? Center(child: CircularProgressIndicator())
                 : SingleChildScrollView(
                     child: Table(
-                    defaultColumnWidth: IntrinsicColumnWidth(),
+                      defaultColumnWidth: IntrinsicColumnWidth(),
                       columnWidths: {
                         0: FlexColumnWidth(1),
                         1: FlexColumnWidth(1),
@@ -152,9 +154,10 @@ class _RankingScreenState extends State<RankingScreen> {
       _topScores = List.generate(10, (index) {
         return TopScoreEntry()
           ..userId = 'user$index'
-          ..score = (10 - index) * 100;
+          ..score = (10 - index) * Random(index).nextInt(100);
       });
       _isLoading = false;
+      _topScores.sort((a, b) => b.score.compareTo(a.score));
     });
   }
 }

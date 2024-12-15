@@ -91,15 +91,36 @@ class BrickBreaker extends FlameGame
           stage1[0].length;
       for (var i = stage1.length - 1; i >= 0; i--) {
         for (var j = 0; j < stage1[i].length; j++) {
-          world.add(Brick(
-            position: Vector2(
-              (j + 0.5) * brickWidth + (j + 1) * brickGutter,
-              (i + 2.0) * brickHeight + i * brickGutter,
-            ),
-            color: brickColors[9],
-            health: brickHealth,
-            maxhealth: brickHealth,
-          ));
+          if (stage1[i][j] == 1) {
+            world.add(Brick(
+              position: Vector2(
+                (j + 0.5) * brickWidth + (j + 1) * brickGutter,
+                (i + 2.0) * brickHeight + i * brickGutter,
+              ),
+              color: brickColors[9],
+              health: brickHealth,
+              maxhealth: brickHealth,
+            ));
+          } else if (stage1[i][j] == 2) {
+            world.add(DoubleScoreBrick(
+              position: Vector2(
+                (j + 0.5) * brickWidth + (j + 1) * brickGutter,
+                (i + 2.0) * brickHeight + i * brickGutter,
+              ),
+              color: brickColors[1],
+            ));
+          } else if (stage1[i][j] == 3) {
+            world.add(TripleHealthBrick(
+              position: Vector2(
+                (j + 0.5) * brickWidth + (j + 1) * brickGutter,
+                (i + 2.0) * brickHeight + i * brickGutter,
+              ),
+              color: brickColors[2],
+            ));
+          } else {
+            // 何もしない
+            stageNumber += 0;
+          }
         }
         brickHealth = (brickHealth * 1.3).toInt();
       }
